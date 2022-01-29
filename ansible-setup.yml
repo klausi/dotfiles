@@ -5,7 +5,9 @@
     - community.general
   vars:
     brew_packages:
+      - ripgrep
       - starship
   tasks:
     - import_tasks: homebrew.yml
     - import_tasks: starship.yml
+    - import_tasks: topgrade.yml
