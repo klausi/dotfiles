@@ -6,4 +6,4 @@ if ! which ansible > /dev/null; then
 fi
 
 # Run our playbook now.
-ansible-playbook ansible-setup.yml
+ansible-playbook ansible-setup.yml -i hosts
