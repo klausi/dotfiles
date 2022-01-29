@@ -1,5 +1,5 @@
 ---
-- name: Install dotfiles locally
+- name: Install programs and dotfiles locally
   hosts: localhost
   collections:
     - community.general
@@ -7,52 +7,5 @@
     brew_packages:
       - starship
   tasks:
-    - name: Ensuring Homebrew Is Installed
-      stat:
-        path: /home/linuxbrew/.linuxbrew/bin/brew
-      register: homebrew_check
-
-    - name: Installing Homebrew
-      when: not homebrew_check.stat.exists
-      shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-    - name: Installing Homebrew Packages
-      when: homebrew_check.stat.exists
-      homebrew:
-        name: "{{ brew_packages }}"
-        state: present
-      register: result
-      until: result is successful
-
-    - name: Ensure fonts directory
-      file:
-        path: "{{ lookup('env', 'HOME') }}/.fonts"
-        state: directory
-
-    - name: Download Nerd font
-      ansible.builtin.unarchive:
-        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
-        dest: "{{ lookup('env', 'HOME') }}/.fonts/"
-        remote_src: yes
-        creates: "{{ lookup('env', 'HOME') }}/.fonts/Fira\ Code\ Regular\ Nerd\ Font\ Complete.ttf"
-      register: nerd_font_installed
-
-    - name: Rebuild font cache
-      when: nerd_font_installed.changed
-      shell: fc-cache -fv
-
-    - name: Ensure Nerd font used in Tilda
-      ansible.builtin.lineinfile:
-        path: "{{ lookup('env', 'HOME') }}/.config/tilda/config_0"
-        regexp: '^font='
-        line: 'font="FiraCode NF 13"'
-
-    - name: Ensure Starship activated in .bashrc
-      ansible.builtin.lineinfile:
-        path: "{{ lookup('env', 'HOME') }}/.bashrc"
-        line: 'eval "$(starship init bash)"'
-
-    - name: Put Starship config into place
-      ansible.builtin.copy:
-        src: starship.toml
-        dest: "{{ lookup('env', 'HOME') }}/.config/starship.toml"
+    - import_tasks: homebrew.yml
+    - import_tasks: starship.yml
