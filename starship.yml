@@ -16,12 +16,6 @@
   when: nerd_font_installed.changed
   shell: fc-cache -fv
 
-- name: Ensure Nerd font used in Tilda
-  ansible.builtin.lineinfile:
-    path: "{{ lookup('env', 'HOME') }}/.config/tilda/config_0"
-    regexp: '^font='
-    line: 'font="FiraCode NF 13"'
-
 - name: Ensure Starship activated in .bashrc
   ansible.builtin.lineinfile:
     path: "{{ lookup('env', 'HOME') }}/.bashrc"

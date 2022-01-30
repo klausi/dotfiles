@@ -1,0 +1,10 @@
+---
+- name: Put Tilda config into place with Nerd font
+  ansible.builtin.copy:
+    src: tilda.ini
+    dest: "{{ lookup('env', 'HOME') }}/.config/tilda/config_0"
+
+- name: Put Tilda CSS into place for better tab visibility
+  ansible.builtin.copy:
+    src: tilda.css
+    dest: "{{ lookup('env', 'HOME') }}/.config/tilda/style.css"
