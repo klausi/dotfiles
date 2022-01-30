@@ -1,5 +1,5 @@
 ---
-- name: Ensuring Homebrew Is Installed
+- name: Ensuring Homebrew Is installed
   stat:
     path: /home/linuxbrew/.linuxbrew/bin/brew
   register: homebrew_check
@@ -8,7 +8,16 @@
   when: not homebrew_check.stat.exists
   shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+- name: Ensure Homebrew activated in .profile
+  ansible.builtin.lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.profile"
+    line: 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'
+
 - name: Installing Homebrew Packages
+  # When brew is freshly installed it is not available on the PATH yet, ensure
+  # it is there manually.
+  environment:
+    PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
   homebrew:
     name: "{{ brew_packages }}"
     state: present

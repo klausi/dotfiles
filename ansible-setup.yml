@@ -11,6 +11,7 @@
     - name: Install Ubuntu packages we want
       apt:
         name:
+          - curl
           - vim
         state: present
       become: yes
