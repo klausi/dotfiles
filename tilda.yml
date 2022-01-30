@@ -1,4 +1,9 @@
 ---
+- name: Ensure tilda config dir exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/tilda"
+    state: directory
+
 - name: Put Tilda config into place with Nerd font
   ansible.builtin.copy:
     src: tilda.ini
