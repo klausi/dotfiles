@@ -8,6 +8,12 @@
       - ripgrep
       - starship
   tasks:
+    - name: Install Ubuntu packages we want
+      apt:
+        name:
+          - vim
+        state: present
+      become: yes
     - import_tasks: homebrew.yml
     - import_tasks: starship.yml
     - import_tasks: topgrade.yml

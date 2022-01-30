@@ -9,7 +9,6 @@
   shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 - name: Installing Homebrew Packages
-  when: homebrew_check.stat.exists
   homebrew:
     name: "{{ brew_packages }}"
     state: present

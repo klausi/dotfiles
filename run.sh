@@ -7,4 +7,4 @@ if ! which ansible > /dev/null; then
 fi
 
 # Run our playbook now.
-ansible-playbook ansible-setup.yml -i hosts
+ansible-playbook ansible-setup.yml -i hosts --ask-become-pass
