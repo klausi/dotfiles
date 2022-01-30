@@ -1,4 +1,9 @@
 ---
+- name: Ensure .local/bin dir exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.local/bin"
+    state: directory
+
 - name: Install Topgrade
   ansible.builtin.unarchive:
     src: https://github.com/r-darwish/topgrade/releases/download/v8.2.0/topgrade-v8.2.0-x86_64-unknown-linux-gnu.tar.gz
