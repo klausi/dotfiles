@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=tilda
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Tilda
+Name=Tilda
+Comment[en_US]=
+Comment=

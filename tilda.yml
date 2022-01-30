@@ -13,3 +13,13 @@
   ansible.builtin.copy:
     src: tilda.css
     dest: "{{ lookup('env', 'HOME') }}/.config/tilda/style.css"
+
+- name: Ensure autostart config dir exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/autostart"
+    state: directory
+
+- name: Put Tilda autostart config into place
+  ansible.builtin.copy:
+    src: tilda.desktop
+    dest: "{{ lookup('env', 'HOME') }}/.config/autostart/tilda.desktop"
