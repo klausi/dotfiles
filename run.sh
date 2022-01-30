@@ -2,7 +2,8 @@
 
 # Make sure ansible is installed.
 if ! which ansible > /dev/null; then
-  sudo apt install ansible
+  sudo add-apt-repository universe -y
+  sudo apt install ansible -y
 fi
 
 # Run our playbook now.
