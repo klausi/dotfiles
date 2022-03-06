@@ -4,6 +4,7 @@
 if ! which ansible > /dev/null; then
   sudo add-apt-repository universe -y
   sudo apt install ansible -y
+  ansible-galaxy collection install community.general
 fi
 
 # Run our playbook now.
