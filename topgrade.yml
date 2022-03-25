@@ -14,5 +14,5 @@
 # Gcloud is udpated with snaps, do not upgrade it.
 - name: Disable gcloud update in Topgrade
   ansible.builtin.copy:
-    content: 'disable = ["gcloud"]'
+    content: 'disable = ["gcloud", "containers", "composer"]'
     dest: "{{ lookup('env', 'HOME') }}/.config/topgrade.toml"
