@@ -13,6 +13,8 @@
         name:
           - curl
           - firefox
+          # Required for dconf step in ubuntu.yml
+          - python3-psutil
           - tilda
           - vim
         state: present
@@ -34,3 +36,4 @@
     - import_tasks: starship.yml
     - import_tasks: tilda.yml
     - import_tasks: topgrade.yml
+    - import_tasks: ubuntu.yml

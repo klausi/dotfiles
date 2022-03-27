@@ -1,0 +1,5 @@
+---
+- name: Hide GNOME desktop icons
+  community.general.dconf:
+    key: "/org/gnome/shell/disabled-extensions"
+    value: "['ding@rastersoft.com']"
