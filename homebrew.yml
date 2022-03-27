@@ -19,7 +19,9 @@
   environment:
     PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
   homebrew:
-    name: "{{ brew_packages }}"
+    name:
+      - ripgrep
+      - starship
     state: present
   register: result
   until: result is successful

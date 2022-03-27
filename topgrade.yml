@@ -12,7 +12,7 @@
     creates: "{{ lookup('env', 'HOME') }}/.local/bin/topgrade"
 
 # Gcloud is udpated with snaps, do not upgrade it.
-- name: Disable gcloud update in Topgrade
+- name: Disable gcloud and composer update in Topgrade
   ansible.builtin.copy:
     content: 'disable = ["gcloud", "containers", "composer"]'
     dest: "{{ lookup('env', 'HOME') }}/.config/topgrade.toml"
