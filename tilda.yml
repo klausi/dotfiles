@@ -23,3 +23,10 @@
   ansible.builtin.copy:
     src: tilda.desktop
     dest: "{{ lookup('env', 'HOME') }}/.config/autostart/tilda.desktop"
+
+- name: Ensure Wayland is disabled so that tilda F12 shortcut works
+  ansible.builtin.lineinfile:
+    path: "/etc/gdm3/custom.conf"
+    line: 'WaylandEnable=false'
+    regexp: "^#WaylandEnable=false"
+  become: yes

@@ -12,6 +12,7 @@
       apt:
         name:
           - curl
+          - firefox
           - tilda
           - vim
         state: present
@@ -20,6 +21,14 @@
       community.general.snap:
         name:
           - zoom-client
+      become: yes
+    - name: Remove Snap packages we do not want
+      community.general.snap:
+        name:
+          # Firefox via Snap is super slow on cold starts, install the APT
+          # version above instead.
+          - firefox
+        state: absent
       become: yes
     - import_tasks: homebrew.yml
     - import_tasks: starship.yml
