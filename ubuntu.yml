@@ -1,10 +1,19 @@
 ---
+- name: Remove Snap packages we do not want
+  community.general.snap:
+    name:
+      # Firefox via Snap is super slow on cold starts, install the APT
+      # version below instead.
+      - firefox
+    state: absent
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
       - curl
       - firefox
-      # Required for dconf step in ubuntu.yml
+      # Required for dconf ansible tasks we use.
       - python3-psutil
       - tilda
       - vim
@@ -15,15 +24,6 @@
   community.general.snap:
     name:
       - zoom-client
-  become: yes
-
-- name: Remove Snap packages we do not want
-  community.general.snap:
-    name:
-      # Firefox via Snap is super slow on cold starts, install the APT
-      # version above instead.
-      - firefox
-    state: absent
   become: yes
 
 - name: Hide GNOME desktop icons
