@@ -22,6 +22,7 @@
     name:
       - ripgrep
       - starship
+      - yt-dlp
     state: present
   register: result
   until: result is successful
