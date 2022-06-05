@@ -8,6 +8,21 @@
     state: absent
   become: yes
 
+- name: Add Mozilla Team PPA for Firefox APT version
+  apt_repository:
+    repo: 'ppa:mozillateam/ppa'
+  become: yes
+
+- name: Set Firefox PPA priority to come first
+  ansible.builtin.copy:
+    content: |
+      Package: *
+      Pin: release o=LP-PPA-mozillateam
+      Pin-Priority: 1001
+    dest: /etc/apt/preferences.d/mozillateamppa
+  become: yes
+  register: firefox_ppa_prio
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -23,6 +38,7 @@
       - tilda
       - vim
     state: present
+    update_cache: "{{ firefox_ppa_prio.changed }}"
   become: yes
 
 - name: Install Snap packages we want
