@@ -4,20 +4,37 @@
     key: "/org/gnome/shell/disabled-extensions"
     value: "['ding@rastersoft.com']"
 
-- name: Ensure system monitor extension dir exists
-  file:
-    path: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/system-monitor-next@paradoxxx.zero.gmail.com"
-    state: directory
-  register: sys_mon_dir
+- name: Set a list of GNOME extension we want
+  set_fact:
+    extensions:
+      system-monitor-next@paradoxxx.zero.gmail.com: https://extensions.gnome.org/extension-data/system-monitor-nextparadoxxx.zero.gmail.com.v42.shell-extension.zip
+      openweather-extension@jenslody.de: https://extensions.gnome.org/extension-data/openweather-extensionjenslody.de.v113.shell-extension.zip
 
-- name: Install system monitor GNOME extension
+- name: Ensure GNOME extension directories exist
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/{{ item.key }}"
+    state: directory
+  loop: "{{ extensions|dict2items }}"
+
+- name: Install GNOME extensions
   ansible.builtin.unarchive:
-    src: https://extensions.gnome.org/extension-data/system-monitor-nextparadoxxx.zero.gmail.com.v42.shell-extension.zip
-    dest: "{{ sys_mon_dir.path }}"
-    creates: "{{ sys_mon_dir.path }}/metadata.json"
+    src: "{{ item.value }}"
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/{{ item.key }}"
+    creates: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/{{ item.key }}/metadata.json"
     remote_src: yes
+  loop: "{{ extensions|dict2items }}"
 
 - name: Set enabled GNOME extensions
   community.general.dconf:
     key: "/org/gnome/shell/enabled-extensions"
-    value: "['pixel-saver@deadalnix.me', 'Hide_Activities@shay.shayel.org', 'system-monitor-next@paradoxxx.zero.gmail.com']"
+    value: "['pixel-saver@deadalnix.me', 'Hide_Activities@shay.shayel.org', 'system-monitor-next@paradoxxx.zero.gmail.com', 'openweather-extension@jenslody.de']"
+
+- name: Set weather temperature decimal point
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/openweather/decimal-places"
+    value: "0"
+
+- name: Set weather location
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/openweather/city"
+    value: "'48.2083537,16.3725042>Wien, 1010, Österreich >0'"
