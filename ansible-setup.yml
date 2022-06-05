@@ -9,3 +9,4 @@
     - import_tasks: starship.yml
     - import_tasks: tilda/tilda.yml
     - import_tasks: topgrade.yml
+    - import_tasks: gnome-shell.yml

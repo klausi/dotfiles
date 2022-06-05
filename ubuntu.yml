@@ -47,11 +47,6 @@
       - zoom-client
   become: yes
 
-- name: Hide GNOME desktop icons
-  community.general.dconf:
-    key: "/org/gnome/shell/disabled-extensions"
-    value: "['ding@rastersoft.com']"
-
 - name: Put auto APT script into place for Anacron
   ansible.builtin.copy:
     src: autoapt.sh

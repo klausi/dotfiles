@@ -1,0 +1,23 @@
+---
+- name: Hide GNOME desktop icons
+  community.general.dconf:
+    key: "/org/gnome/shell/disabled-extensions"
+    value: "['ding@rastersoft.com']"
+
+- name: Ensure system monitor extension dir exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/system-monitor-next@paradoxxx.zero.gmail.com"
+    state: directory
+  register: sys_mon_dir
+
+- name: Install system monitor GNOME extension
+  ansible.builtin.unarchive:
+    src: https://extensions.gnome.org/extension-data/system-monitor-nextparadoxxx.zero.gmail.com.v42.shell-extension.zip
+    dest: "{{ sys_mon_dir.path }}"
+    creates: "{{ sys_mon_dir.path }}/metadata.json"
+    remote_src: yes
+
+- name: Set enabled GNOME extensions
+  community.general.dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "['pixel-saver@deadalnix.me', 'Hide_Activities@shay.shayel.org', 'system-monitor-next@paradoxxx.zero.gmail.com']"
