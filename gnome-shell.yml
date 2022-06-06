@@ -9,6 +9,8 @@
     extensions:
       system-monitor-next@paradoxxx.zero.gmail.com: https://extensions.gnome.org/extension-data/system-monitor-nextparadoxxx.zero.gmail.com.v42.shell-extension.zip
       openweather-extension@jenslody.de: https://extensions.gnome.org/extension-data/openweather-extensionjenslody.de.v113.shell-extension.zip
+      pixel-saver@deadalnix.me: https://extensions.gnome.org/extension-data/pixel-saverdeadalnix.me.v26.shell-extension.zip
+      Hide_Activities@shay.shayel.org: https://extensions.gnome.org/extension-data/Hide_Activitiesshay.shayel.org.v13.shell-extension.zip
 
 - name: Ensure GNOME extension directories exist
   file:

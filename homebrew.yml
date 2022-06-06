@@ -20,6 +20,7 @@
     PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
   homebrew:
     name:
+      - drud/ddev/ddev
       - ripgrep
       - starship
       - yt-dlp
