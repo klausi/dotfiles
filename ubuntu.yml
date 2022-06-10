@@ -54,3 +54,9 @@
     dest: /etc/cron.daily/autoapt
     mode: preserve
   become: yes
+
+- name: Make Firefox the default browser
+  community.general.alternatives:
+    name: x-www-browser
+    path: /usr/bin/firefox
+  become: yes
