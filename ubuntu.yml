@@ -44,6 +44,7 @@
 - name: Install Snap packages we want
   community.general.snap:
     name:
+      - code
       - zoom-client
   become: yes
 
