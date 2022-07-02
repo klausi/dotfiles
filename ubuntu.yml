@@ -66,3 +66,8 @@
     name: x-www-browser
     path: /usr/bin/firefox
   become: yes
+
+- name: Ensure .local/bin directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.local/bin"
+    state: directory
