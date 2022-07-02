@@ -25,5 +25,22 @@
       - starship
       - yt-dlp
     state: present
-  register: result
-  until: result is successful
+
+- name: Removing Homebrew Packages
+  # When brew is freshly installed it is not available on the PATH yet, ensure
+  # it is there manually.
+  environment:
+    PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
+  homebrew:
+    name:
+      # Zola image linking is broken, install old version manually.
+      # https://github.com/getzola/zola/issues/1772
+      - zola
+    state: absent
+
+- name: Install old Zola version
+  ansible.builtin.unarchive:
+    src: "https://github.com/getzola/zola/releases/download/v0.14.1/zola-v0.14.1-x86_64-unknown-linux-gnu.tar.gz"
+    dest: "{{ lookup('env', 'HOME') }}/.local/bin"
+    creates: "{{ lookup('env', 'HOME') }}/.local/bin/zola"
+    remote_src: yes
