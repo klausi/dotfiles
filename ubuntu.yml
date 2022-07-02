@@ -44,8 +44,14 @@
 - name: Install Snap packages we want
   community.general.snap:
     name:
-      - code
       - zoom-client
+  become: yes
+
+- name: Install Snap packages in classic mode that we want
+  community.general.snap:
+    name:
+      - code
+    classic: yes
   become: yes
 
 - name: Put auto APT script into place for Anacron
