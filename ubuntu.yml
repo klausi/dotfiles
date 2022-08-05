@@ -41,6 +41,7 @@
       # Used for automatic background updates, see
       # https://klau.si/blog/fully-hidden-automatic-system-updates-ubuntu/
       - anacron
+      - build-essential
       - curl
       # Native Firefox is much faster than the snap version, see
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1748076
