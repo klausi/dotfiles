@@ -23,6 +23,13 @@
   become: yes
   register: firefox_ppa_prio
 
+- name: Add Google Chrome APT repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+    filename: google-chrome
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -33,6 +40,7 @@
       # Native Firefox is much faster than the snap version, see
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1748076
       - firefox
+      - google-chrome-stable
       # Required for dconf ansible tasks we use.
       - python3-psutil
       - tilda
