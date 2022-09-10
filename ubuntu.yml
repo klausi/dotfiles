@@ -8,6 +8,15 @@
     state: absent
   become: yes
 
+- name: Remove APT packages we do not want
+  apt:
+    name:
+      # The APT version of LibreOffice does not work with some extensions for
+      # me, use the Snap version instead.
+      - libreoffice-base-core
+    state: absent
+  become: yes
+
 - name: Add Mozilla Team PPA for Firefox APT version
   apt_repository:
     repo: 'ppa:mozillateam/ppa'
@@ -46,12 +55,19 @@
       # Native Firefox is much faster than the snap version, see
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1748076
       - firefox
+      # For GNOME system monitor shell extension.
+      - gir1.2-gtop-2.0
+      - gir1.2-nm-1.0
+      - gir1.2-clutter-1.0
+      - gnome-shell-extensions
+      - gnome-system-monitor
       - google-chrome-stable
       - p7zip-full
       - python-is-python3
       # Required for dconf ansible tasks we use.
       - python3-psutil
       - tilda
+      - unison-gtk
       - vim
     state: present
     update_cache: "{{ firefox_ppa_prio.changed }}"
@@ -61,6 +77,9 @@
   community.general.snap:
     name:
       - zoom-client
+      # The APT version of LibreOffice does not work with some extensions for
+      # me, use the Snap version instead.
+      - libreoffice
   become: yes
 
 - name: Install Snap packages in classic mode that we want
