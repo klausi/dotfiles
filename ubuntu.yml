@@ -47,6 +47,8 @@
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1748076
       - firefox
       - google-chrome-stable
+      - p7zip-full
+      - python-is-python3
       # Required for dconf ansible tasks we use.
       - python3-psutil
       - tilda
