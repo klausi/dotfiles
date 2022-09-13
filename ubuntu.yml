@@ -52,6 +52,7 @@
       - anacron
       - build-essential
       - curl
+      - docker.io
       # Native Firefox is much faster than the snap version, see
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1748076
       - firefox
@@ -62,6 +63,8 @@
       - gnome-shell-extensions
       - gnome-system-monitor
       - google-chrome-stable
+      - libssl-dev
+      - pkg-config
       - p7zip-full
       - python-is-python3
       # Required for dconf ansible tasks we use.
@@ -106,3 +109,9 @@
   file:
     path: "{{ lookup('env', 'HOME') }}/.local/bin"
     state: directory
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: docker
+    append: yes
