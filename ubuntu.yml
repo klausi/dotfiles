@@ -83,6 +83,7 @@
       # The APT version of LibreOffice does not work with some extensions for
       # me, use the Snap version instead.
       - libreoffice
+      - yq
   become: yes
 
 - name: Install Snap packages in classic mode that we want
