@@ -64,6 +64,7 @@
       - gnome-system-monitor
       - google-chrome-stable
       - libssl-dev
+      - php-cli
       - pkg-config
       - p7zip-full
       - python-is-python3
@@ -116,3 +117,15 @@
     name: "{{ lookup('env', 'USER') }}"
     groups: docker
     append: yes
+
+- name: Set a list of Bash aliases
+  set_fact:
+    bash_aliases:
+      s: "{{ lookup('env', 'HOME') }}/workspace/ce_scripts/helpers/ssh_connect.sh"
+      ag: rg
+
+- name: Set aliases in .bashrc
+  ansible.builtin.lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.bashrc"
+    line: "alias {{ item.key }}='{{ item.value }}'"
+  loop: "{{ bash_aliases|dict2items }}"
