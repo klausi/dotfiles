@@ -71,8 +71,10 @@
       # Required for dconf ansible tasks we use.
       - python3-psutil
       - tilda
+      - ubuntu-restricted-extras
       - unison-gtk
       - vim
+      - vlc
     state: present
     update_cache: "{{ firefox_ppa_prio.changed }}"
   become: yes
