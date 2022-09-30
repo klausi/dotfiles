@@ -5,6 +5,9 @@
       # Firefox via Snap is super slow on cold starts, install the APT
       # version below instead.
       - firefox
+      # We don't need the graphical snap store and it makes problems with
+      # auto-updating snaps.
+      - snap-store
     state: absent
   become: yes
 
