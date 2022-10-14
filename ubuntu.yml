@@ -68,6 +68,8 @@
       - google-chrome-stable
       - libssl-dev
       - php-cli
+      - php-curl
+      - php-gd
       - php-mbstring
       - php-simplexml
       - pkg-config
@@ -129,8 +131,9 @@
 - name: Set a list of Bash aliases
   set_fact:
     bash_aliases:
-      s: "{{ lookup('env', 'HOME') }}/workspace/ce_scripts/helpers/ssh_connect.sh"
       ag: rg
+      pareview.sh: "{{ lookup('env', 'HOME') }}/workspace/pareviewsh/pareview.sh"
+      s: "{{ lookup('env', 'HOME') }}/workspace/ce_scripts/helpers/ssh_connect.sh"
 
 - name: Set aliases in .bashrc
   ansible.builtin.lineinfile:
