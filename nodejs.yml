@@ -1,0 +1,29 @@
+---
+- name: install nodejs prerequisites
+  apt:
+    name:
+      - apt-transport-https
+      - gcc
+      - g++
+      - make
+    state: present
+  become: yes
+
+- name: add nodejs apt key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+  become: yes
+
+- name: add nodejs repository
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_16.x {{ ansible_lsb.codename }} main
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: install nodejs
+  apt:
+    name: nodejs
+    state: present
+  become: yes
