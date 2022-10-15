@@ -1,9 +1,4 @@
 ---
-- name: Ensure .local/bin dir exists
-  file:
-    path: "{{ lookup('env', 'HOME') }}/.local/bin"
-    state: directory
-
 - name: Install Topgrade
   ansible.builtin.unarchive:
     src: https://github.com/r-darwish/topgrade/releases/download/v8.2.0/topgrade-v8.2.0-x86_64-unknown-linux-gnu.tar.gz
@@ -11,8 +6,7 @@
     remote_src: yes
     creates: "{{ lookup('env', 'HOME') }}/.local/bin/topgrade"
 
-# Gcloud is udpated with snaps, do not upgrade it.
-- name: Disable gcloud and composer update in Topgrade
+- name: Put Topgrade config into place
   ansible.builtin.copy:
-    content: 'disable = ["gcloud", "containers", "composer"]'
+    src: topgrade.toml
     dest: "{{ lookup('env', 'HOME') }}/.config/topgrade.toml"

@@ -1,0 +1,5 @@
+# Gcloud is managed by Snap, also leave containers alone.
+disable = ["gcloud", "containers"]
+
+[composer]
+self_update = true
