@@ -93,11 +93,12 @@
 - name: Install Snap packages we want
   community.general.snap:
     name:
-      - zoom-client
+      - discord
       # The APT version of LibreOffice does not work with some extensions for
       # me, use the Snap version instead.
       - libreoffice
       - yq
+      - zoom-client
   become: yes
 
 - name: Install Snap packages in classic mode that we want
