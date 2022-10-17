@@ -63,10 +63,13 @@
       - gir1.2-gtop-2.0
       - gir1.2-nm-1.0
       - gir1.2-clutter-1.0
+      - git
       - gnome-shell-extensions
       - gnome-system-monitor
       - google-chrome-stable
+      - htop
       - libssl-dev
+      - net-tools
       - php-cli
       - php-curl
       - php-gd
@@ -127,6 +130,7 @@
     name: "{{ lookup('env', 'USER') }}"
     groups: docker
     append: yes
+  become: yes
 
 - name: Set a list of Bash aliases
   set_fact:
