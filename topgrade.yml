@@ -1,10 +1,10 @@
 ---
 - name: Install Topgrade
-  ansible.builtin.unarchive:
-    src: https://github.com/r-darwish/topgrade/releases/download/v8.2.0/topgrade-v8.2.0-x86_64-unknown-linux-gnu.tar.gz
-    dest: "{{ lookup('env', 'HOME') }}/.local/bin/"
-    remote_src: yes
-    creates: "{{ lookup('env', 'HOME') }}/.local/bin/topgrade"
+  ansible.builtin.get_url:
+    url: https://github.com/topgrade-rs/topgrade/releases/download/v9.1.0/topgrade-rs
+    dest: "{{ lookup('env', 'HOME') }}/.local/bin/topgrade"
+    mode: '0755'
+    force: no
 
 - name: Put Topgrade config into place
   ansible.builtin.copy:
