@@ -47,6 +47,11 @@
     filename: google-chrome
   become: yes
 
+- name: Add Git PPA to get autoSetupRemote support
+  apt_repository:
+    repo: 'ppa:git-core/ppa'
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:

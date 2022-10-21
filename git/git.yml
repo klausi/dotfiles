@@ -1,0 +1,33 @@
+---
+- name: Put Gitconfig into place
+  ansible.builtin.copy:
+    src: gitconfig.ini
+    dest: "{{ lookup('env', 'HOME') }}/.gitconfig"
+
+- name: Put Gitignore into place
+  ansible.builtin.copy:
+    src: gitignore
+    dest: "{{ lookup('env', 'HOME') }}/.gitignore"
+
+- name: Ensure .user.gitconfig is set
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.gitconfig.user"
+  register: user_gitconfig
+
+- name: Get user email
+  ansible.builtin.pause:
+    prompt: "Enter your email address for the gitconfig"
+  when: not user_gitconfig.stat.exists
+  register: user_email
+
+- name: Get user full name
+  ansible.builtin.pause:
+    prompt: "Enter your full name for the gitconfig"
+  when: not user_gitconfig.stat.exists
+  register: user_name
+
+- name: Put user gitconfig into place
+  ansible.builtin.template:
+    src: gitconfig.user.ini
+    dest: "{{ lookup('env', 'HOME') }}/.gitconfig.user"
+  when: not user_gitconfig.stat.exists

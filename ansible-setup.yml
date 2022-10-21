@@ -4,6 +4,9 @@
   collections:
     - community.general
   tasks:
+    # Run the git setup first because we prompt for personal data input there if
+    # config does not exist yet.
+    - import_tasks: git/git.yml
     - import_tasks: ubuntu.yml
     - import_tasks: homebrew.yml
     - import_tasks: starship.yml
