@@ -17,6 +17,8 @@
       # The APT version of LibreOffice does not work with some extensions for
       # me, use the Snap version instead.
       - libreoffice-base-core
+      # Remove spam advertisements from Canonical.
+      - ubuntu-advantage-tools
     state: absent
   become: yes
 
@@ -100,6 +102,7 @@
       - python3-psutil
       - qbittorrent
       - tilda
+      - ttf-mscorefonts-installer
       - ubuntu-restricted-extras
       - unison-gtk
       - vim
@@ -163,3 +166,9 @@
     path: "{{ lookup('env', 'HOME') }}/.bashrc"
     line: "alias {{ item.key }}='{{ item.value }}'"
   loop: "{{ bash_aliases|dict2items }}"
+
+- name: Remove Canonical spam advertisements in APT output
+  ansible.builtin.copy:
+    content: ""
+    dest: /etc/apt/apt.conf.d/20apt-esm-hook.conf
+  become: yes
