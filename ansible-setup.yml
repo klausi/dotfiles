@@ -1,4 +1,5 @@
 ---
+# This is our main Ansible file that lists all the Ansible task files.
 - name: Install programs and dotfiles locally
   hosts: localhost
   collections:
@@ -7,6 +8,7 @@
     # Run the git setup first because we prompt for personal data input there if
     # config does not exist yet.
     - import_tasks: git/git.yml
+    - import_tasks: apt.yml
     - import_tasks: ubuntu.yml
     - import_tasks: homebrew.yml
     - import_tasks: starship.yml
