@@ -52,6 +52,18 @@
     repo: 'ppa:git-core/ppa'
   become: yes
 
+- name: Add DDEV signing key
+  ansible.builtin.apt_key:
+    url: https://apt.fury.io/drud/gpg.key
+  become: yes
+
+- name: Add DDEV APT repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb https://apt.fury.io/drud/ * *
+    state: present
+    filename: ddev
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -60,6 +72,7 @@
       - anacron
       - build-essential
       - curl
+      - ddev
       - docker.io
       # Native Firefox is much faster than the snap version, see
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1748076

@@ -20,7 +20,6 @@
     PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
   homebrew:
     name:
-      - drud/ddev/ddev
       - ripgrep
       - starship
       - yt-dlp
@@ -33,6 +32,8 @@
     PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
   homebrew:
     name:
+      # DDEV is now installed via APT.
+      - drud/ddev/ddev
       # Zola image linking is broken, install old version manually.
       # https://github.com/getzola/zola/issues/1772
       - zola
