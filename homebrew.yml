@@ -20,9 +20,7 @@
     PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
   homebrew:
     name:
-      - ripgrep
       - starship
-      - yt-dlp
     state: present
 
 - name: Removing Homebrew Packages
@@ -32,8 +30,10 @@
     PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
   homebrew:
     name:
-      # DDEV is now installed via APT.
+      # DDEV, ripgrep and yt-dlp are now installed via APT.
       - drud/ddev/ddev
+      - ripgrep
+      - yt-dlp
       # Zola image linking is broken, install old version manually.
       # https://github.com/getzola/zola/issues/1772
       - zola

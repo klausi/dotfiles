@@ -52,6 +52,11 @@
     filename: ddev
   become: yes
 
+- name: Add yt-dlp PPA
+  apt_repository:
+    repo: 'ppa:yt-dlp/stable'
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -87,12 +92,14 @@
       # Required for dconf ansible tasks we use.
       - python3-psutil
       - qbittorrent
+      - ripgrep
       - tilda
       - ttf-mscorefonts-installer
       - ubuntu-restricted-extras
       - unison-gtk
       - vim
       - vlc
+      - yt-dlp
     state: present
     update_cache: "{{ firefox_ppa_prio.changed }}"
   become: yes
