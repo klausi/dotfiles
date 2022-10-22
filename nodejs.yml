@@ -12,6 +12,7 @@
 - name: add nodejs apt key
   apt_key:
     url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    keyring: /etc/apt/trusted.gpg.d/nodejs.gpg
     state: present
   become: yes
 

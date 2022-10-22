@@ -43,6 +43,7 @@
 - name: Add DDEV signing key
   ansible.builtin.apt_key:
     url: https://apt.fury.io/drud/gpg.key
+    keyring: /etc/apt/trusted.gpg.d/ddev.gpg
   become: yes
 
 - name: Add DDEV APT repository into sources list
