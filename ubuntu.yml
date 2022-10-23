@@ -72,3 +72,8 @@
     content: ""
     dest: /etc/apt/apt.conf.d/20apt-esm-hook.conf
   become: yes
+
+- name: Put Topgrade config into place
+  ansible.builtin.copy:
+    src: topgrade.toml
+    dest: "{{ lookup('env', 'HOME') }}/.config/topgrade.toml"

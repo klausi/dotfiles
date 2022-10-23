@@ -21,6 +21,7 @@
   homebrew:
     name:
       - starship
+      - topgrade
     state: present
 
 - name: Removing Homebrew Packages
