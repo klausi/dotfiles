@@ -13,6 +13,13 @@
     repo: 'ppa:mozillateam/ppa'
   become: yes
 
+- name: Add Mozilla PPA GPG key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 0AB215679C571D1C8325275B9BDB3D89CE49EC21
+    keyring: /etc/apt/trusted.gpg.d/mozilla.gpg
+  become: yes
+
 - name: Set Firefox PPA priority to come first
   ansible.builtin.copy:
     content: |
@@ -40,6 +47,13 @@
     repo: 'ppa:git-core/ppa'
   become: yes
 
+- name: Add Git PPA GPG key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: E1DD270288B4E6030699E45FA1715D88E1DF1F24
+    keyring: /etc/apt/trusted.gpg.d/git.gpg
+  become: yes
+
 - name: Add DDEV signing key
   ansible.builtin.apt_key:
     url: https://apt.fury.io/drud/gpg.key
@@ -56,6 +70,13 @@
 - name: Add yt-dlp PPA
   apt_repository:
     repo: 'ppa:yt-dlp/stable'
+  become: yes
+
+- name: Add yt-dlp PPA GPG key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 3B2EB75ADE78B349FC95B07AE0D04D2E936B2F90
+    keyring: /etc/apt/trusted.gpg.d/yt-dlp.gpg
   become: yes
 
 - name: Install Ubuntu packages we want
