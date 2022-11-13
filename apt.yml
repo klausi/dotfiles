@@ -110,6 +110,7 @@
       - php-simplexml
       - pkg-config
       - p7zip-full
+      - pwgen
       - python-is-python3
       # Required for dconf ansible tasks we use.
       - python3-psutil
