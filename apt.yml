@@ -2,6 +2,8 @@
 - name: Remove APT packages we do not want
   apt:
     name:
+      # Manually installing the DPKG package is annoying, use the Snap version.
+      - discord
       # The APT version of LibreOffice does not work with some extensions for
       # me, use the Snap version instead.
       - libreoffice-base-core
