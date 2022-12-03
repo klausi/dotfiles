@@ -77,3 +77,16 @@
   ansible.builtin.copy:
     src: topgrade.toml
     dest: "{{ lookup('env', 'HOME') }}/.config/topgrade.toml"
+
+- name: Show raw system output on Ubuntu startup instead of splash screen
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX_DEFAULT='
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT=""'
+  become: yes
+  register: grub_splash
+
+- name: Update GRUB if needed
+  shell: update-grub
+  become: yes
+  when: grub_splash.changed
