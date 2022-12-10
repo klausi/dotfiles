@@ -11,6 +11,14 @@ set -x
 # Log the current date so that we can check when any failed runs happened.
 date
 
+# Internet is slow on Austrian trains. Check the Wifi SSID and stop in that
+# case.
+iwgetid -r | grep -q OEBB
+if [ "$?" -eq "0" ]; then
+  echo "Skipping updates because of slow Wifi"
+  exit 0
+fi
+
 export DEBIAN_FRONTEND=noninteractive
 apt update
 # By default answer all user interaction questions with yes, for example
