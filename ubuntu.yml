@@ -5,6 +5,9 @@
       # Firefox via Snap is super slow on cold starts, install the APT
       # version below instead.
       - firefox
+      # The APT version of LibreOffice ist faster and works with my extensions
+      # again.
+      - libreoffice
       # We don't need the graphical snap store and it makes problems with
       # auto-updating snaps.
       - snap-store
@@ -15,9 +18,6 @@
   community.general.snap:
     name:
       - discord
-      # The APT version of LibreOffice does not work with some extensions for
-      # me, use the Snap version instead.
-      - libreoffice
       - yq
       - zoom-client
   become: yes

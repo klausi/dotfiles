@@ -4,9 +4,6 @@
     name:
       # Manually installing the DPKG package is annoying, use the Snap version.
       - discord
-      # The APT version of LibreOffice does not work with some extensions for
-      # me, use the Snap version instead.
-      - libreoffice-base-core
     state: absent
   become: yes
 
@@ -103,6 +100,9 @@
       - gnome-system-monitor
       - google-chrome-stable
       - htop
+      - libreoffice-calc
+      - libreoffice-gtk3
+      - libreoffice-writer
       - libssl-dev
       - net-tools
       - php-cli
