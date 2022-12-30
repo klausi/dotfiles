@@ -45,3 +45,18 @@
   community.general.dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
     value: "'RIGHT'"
+
+- name: Set Shutdown shortcut binding
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
+    value: "'<Primary><Alt>h'"
+
+- name: Set Shutdown shortcut command
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
+    value: "'gnome-session-quit --power-off --force'"
+
+- name: Set Shutdown shortcut name
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
+    value: "'Shutdown Halt'"
