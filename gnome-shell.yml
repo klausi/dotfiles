@@ -40,3 +40,8 @@
   community.general.dconf:
     key: "/org/gnome/shell/extensions/openweather/city"
     value: "'48.2083537,16.3725042>Wien, 1010, Österreich >0'"
+
+- name: Move Dock to the right
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
+    value: "'RIGHT'"
