@@ -1,0 +1,12 @@
+---
+- name: Uninstall Homebrew folder
+  file:
+    state: absent
+    path: /home/linuxbrew
+  become: yes
+
+- name: Ensure Homebrew not activated in .profile
+  ansible.builtin.lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.profile"
+    line: 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'
+    state: absent
