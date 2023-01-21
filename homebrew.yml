@@ -21,7 +21,6 @@
   homebrew:
     name:
       - topgrade
-      - zola
     state: present
 
 - name: Removing Homebrew Packages
@@ -36,4 +35,5 @@
       - ripgrep
       - starship
       - yt-dlp
+      - zola
     state: absent

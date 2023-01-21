@@ -30,6 +30,13 @@
     classic: yes
   become: yes
 
+- name: Install Snap packages in edge mode that we want
+  community.general.snap:
+    name:
+      - zola
+    channel: edge
+  become: yes
+
 - name: Put auto APT script into place for Anacron
   ansible.builtin.copy:
     src: autoapt.sh
