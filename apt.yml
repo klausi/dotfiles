@@ -32,6 +32,7 @@
 - name: Add Chrome signing key
   ansible.builtin.apt_key:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    id: EB4C1BFD4F042F6DDDCCEC917721F63BD38B4796
   become: yes
 
 - name: Add Google Chrome APT repository into sources list
@@ -56,6 +57,7 @@
 - name: Add DDEV signing key
   ansible.builtin.apt_key:
     url: https://apt.fury.io/drud/gpg.key
+    id: DBD730A3A581BDAC98BAF17FC16711FC1179C7CA
     keyring: /etc/apt/trusted.gpg.d/ddev.gpg
   become: yes
 
@@ -78,12 +80,25 @@
     keyring: /etc/apt/trusted.gpg.d/yt-dlp.gpg
   become: yes
 
+- name: add nodejs apt key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    keyring: /etc/apt/trusted.gpg.d/nodejs.gpg
+    id: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280
+  become: yes
+
+- name: add nodejs repository
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_16.x {{ ansible_lsb.codename }} main
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
       # Used for automatic background updates, see
       # https://klau.si/blog/fully-hidden-automatic-system-updates-ubuntu/
       - anacron
+      - apt-transport-https
       - build-essential
       - curl
       - ddev
@@ -91,6 +106,8 @@
       # Native Firefox is much faster than the snap version, see
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1748076
       - firefox
+      - g++
+      - gcc
       # For GNOME system monitor shell extension.
       - gir1.2-gtop-2.0
       - gir1.2-nm-1.0
@@ -104,7 +121,9 @@
       - libreoffice-gtk3
       - libreoffice-writer
       - libssl-dev
+      - make
       - net-tools
+      - nodejs
       - php-cli
       - php-curl
       - php-gd
