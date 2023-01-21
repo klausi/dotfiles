@@ -20,7 +20,6 @@
     PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
   homebrew:
     name:
-      - starship
       - topgrade
       - zola
     state: present
@@ -35,5 +34,6 @@
       # DDEV, ripgrep and yt-dlp are now installed via APT.
       - drud/ddev/ddev
       - ripgrep
+      - starship
       - yt-dlp
     state: absent

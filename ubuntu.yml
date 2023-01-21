@@ -18,6 +18,7 @@
   community.general.snap:
     name:
       - discord
+      - starship
       - yq
       - zoom-client
   become: yes
