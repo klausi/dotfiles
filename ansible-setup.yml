@@ -2,9 +2,16 @@
 # This is our main Ansible file that lists all the Ansible task files.
 - name: Install programs and dotfiles locally
   hosts: localhost
+  # Gather only facts we need below in setup for better performance.
+  gather_facts: false
   collections:
     - community.general
   tasks:
+    - name: Gather facts we need
+      ansible.builtin.setup:
+        gather_subset:
+          - '!all'
+          - lsb
     # Run the git setup first because we prompt for personal data input there if
     # config does not exist yet.
     - import_tasks: git/git.yml
