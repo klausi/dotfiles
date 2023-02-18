@@ -65,3 +65,8 @@
   community.general.dconf:
     key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
     value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+
+- name: Disable touchpad tap dragging, I trigger it a lot by accident
+  community.general.dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/tap-and-drag"
+    value: "false"
