@@ -117,13 +117,18 @@
       - gnome-system-monitor
       - google-chrome-stable
       - htop
+      # We need the full Libreoffice package, otherwise Libreoffice Draw
+      # crashes.
+      - libreoffice
       - libreoffice-calc
+      - libreoffice-draw
       - libreoffice-gtk3
       - libreoffice-writer
       - libssl-dev
       - make
       - net-tools
       - nodejs
+      - pdftk
       - php-cli
       - php-curl
       - php-gd

@@ -18,7 +18,6 @@
   community.general.snap:
     name:
       - discord
-      - starship
       - yq
       - zoom-client
   become: yes
@@ -33,6 +32,7 @@
 - name: Install Snap packages in edge mode that we want
   community.general.snap:
     name:
+      - starship
       - zola
     channel: edge
   become: yes
