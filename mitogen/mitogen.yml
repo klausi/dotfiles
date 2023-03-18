@@ -1,22 +1,22 @@
 ---
+- name: Set Mitogen version
+  set_fact:
+    mitogen_version: 0.3.3
+
 - name: Check if Mitogen is installed
   stat:
-    path: "{{ playbook_dir }}/mitogen/mitogen"
+    path: "{{ playbook_dir }}/mitogen/mitogen-{{ mitogen_version }}"
   register: mitogen_lib
 
 - name: Install Mitogen for better Ansible performance
   ansible.builtin.unarchive:
-    src: https://github.com/mitogen-hq/mitogen/archive/refs/tags/v0.3.0-rc.0.tar.gz
+    src: https://github.com/mitogen-hq/mitogen/archive/refs/tags/v{{ mitogen_version }}.tar.gz
     dest: "{{ playbook_dir }}/mitogen"
     remote_src: yes
   when: not mitogen_lib.stat.exists
 
-- name: Rename Mitogen download
-  command: "mv {{ playbook_dir }}/mitogen/mitogen-0.3.0-rc.0 {{ playbook_dir }}/mitogen/mitogen"
-  when: not mitogen_lib.stat.exists
-
 - name: Put Ansible Mitogen config into place
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: ansible.cfg
     dest: "{{ playbook_dir }}/ansible.cfg"
   when: not mitogen_lib.stat.exists
