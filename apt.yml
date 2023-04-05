@@ -68,15 +68,21 @@
     filename: ddev
   become: yes
 
-- name: Add yt-dlp PPA
+- name: Remove old yt-dlp PPA
   apt_repository:
     repo: 'ppa:yt-dlp/stable'
+    state: absent
+  become: yes
+
+- name: Add yt-dlp PPA
+  apt_repository:
+    repo: 'ppa:tomtomtom/yt-dlp'
   become: yes
 
 - name: Add yt-dlp PPA GPG key
   ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
-    id: 3B2EB75ADE78B349FC95B07AE0D04D2E936B2F90
+    id: CEC312CC5ED8215A6E0EFC49B90E9186F0E836FB
     keyring: /etc/apt/trusted.gpg.d/yt-dlp.gpg
   become: yes
 
