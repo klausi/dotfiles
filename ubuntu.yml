@@ -66,6 +66,7 @@
   set_fact:
     bash_aliases:
       ag: rg
+      drupalorg: "{{ lookup('env', 'HOME') }}/workspace/drupalorg-cli/drupalorg"
       pareview.sh: "{{ lookup('env', 'HOME') }}/workspace/pareviewsh/pareview.sh"
       s: "{{ lookup('env', 'HOME') }}/workspace/ce_scripts/helpers/ssh_connect.sh"
 
