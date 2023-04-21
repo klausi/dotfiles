@@ -98,6 +98,18 @@
     repo: deb https://deb.nodesource.com/node_16.x {{ ansible_lsb.codename }} main
   become: yes
 
+- name: add vscode apt key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    keyring: /etc/apt/trusted.gpg.d/vscode.gpg
+    id: BC528686B50D79E339D3721CEB3E94ADBE1229CF
+  become: yes
+
+- name: add vscode repository
+  apt_repository:
+    repo: deb https://packages.microsoft.com/repos/code stable main
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -106,6 +118,7 @@
       - anacron
       - apt-transport-https
       - build-essential
+      - code
       - curl
       - ddev
       - docker.io

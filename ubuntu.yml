@@ -2,6 +2,8 @@
 - name: Remove Snap packages we do not want
   community.general.snap:
     name:
+      # The Snap version of VSCode cannot open links.
+      - code
       # Firefox via Snap is super slow on cold starts, install the APT
       # version below instead.
       - firefox
@@ -20,13 +22,6 @@
       - discord
       - yq
       - zoom-client
-  become: yes
-
-- name: Install Snap packages in classic mode that we want
-  community.general.snap:
-    name:
-      - code
-    classic: yes
   become: yes
 
 - name: Install Snap packages in edge mode that we want
