@@ -105,9 +105,16 @@
     id: BC528686B50D79E339D3721CEB3E94ADBE1229CF
   become: yes
 
+- name: remove old vscode repo file
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/packages_microsoft_com_repos_code.list
+    state: absent
+  become: yes
+
 - name: add vscode repository
   apt_repository:
-    repo: deb https://packages.microsoft.com/repos/code stable main
+    repo: deb [arch=amd64,arm64,armhf] http://packages.microsoft.com/repos/code stable main
+    filename: vscode
   become: yes
 
 - name: Install Ubuntu packages we want
