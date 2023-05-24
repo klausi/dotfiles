@@ -173,6 +173,7 @@
       - ubuntu-restricted-extras
       - unison-gtk
       - vim
+      - libxml2-utils
       - vlc
       - yt-dlp
     state: present
