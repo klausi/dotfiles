@@ -33,6 +33,7 @@
   ansible.builtin.apt_key:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
     id: EB4C1BFD4F042F6DDDCCEC917721F63BD38B4796
+    keyring: /etc/apt/trusted.gpg.d/google-chrome.gpg
   become: yes
 
 - name: Add Google Chrome APT repository into sources list
@@ -89,13 +90,20 @@
 - name: add nodejs apt key
   apt_key:
     url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-    keyring: /etc/apt/trusted.gpg.d/nodejs.gpg
+    keyring: /etc/apt/trusted.gpg.d/nodesource.gpg
     id: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280
+  become: yes
+
+- name: remove old nodejs repo file
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/deb_nodesource_com_node_16_x.list
+    state: absent
   become: yes
 
 - name: add nodejs repository
   apt_repository:
-    repo: deb https://deb.nodesource.com/node_16.x {{ ansible_lsb.codename }} main
+    repo: "deb https://deb.nodesource.com/node_18.x {{ ansible_lsb.codename }} main"
+    filename: nodesource
   become: yes
 
 - name: add vscode apt key
