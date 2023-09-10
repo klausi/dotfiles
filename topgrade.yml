@@ -1,10 +1,24 @@
 ---
+- name: Check if Topgrade is already installed
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.local/bin/topgrade"
+  register: topgrade_binary
+
+- name: Get Topgrade release info
+  uri:
+    url: https://api.github.com/repos/topgrade-rs/topgrade/releases/latest
+    return_content: yes
+    body_format: json
+  register: topgrade_release
+  when: not topgrade_binary.stat.exists
+
 - name: Install Topgrade
   ansible.builtin.unarchive:
-    src: https://github.com/topgrade-rs/topgrade/releases/download/v10.2.4/topgrade-v10.2.4-x86_64-unknown-linux-gnu.tar.gz
+    src: "https://github.com/topgrade-rs/topgrade/releases/download/{{ topgrade_release.json.tag_name }}/topgrade-{{ topgrade_release.json.tag_name }}-x86_64-unknown-linux-gnu.tar.gz"
     dest: "{{ lookup('env', 'HOME') }}/.local/bin"
     remote_src: yes
     creates: "{{ lookup('env', 'HOME') }}/.local/bin/topgrade"
+  when: not topgrade_binary.stat.exists
 
 - name: Put Topgrade config into place
   ansible.builtin.copy:
