@@ -13,6 +13,8 @@
       # We don't need the graphical snap store and it makes problems with
       # auto-updating snaps.
       - snap-store
+      # Starship is outdated in Snap, so we install it with cargo instead.
+      - starship
     state: absent
   become: yes
 
@@ -27,7 +29,6 @@
 - name: Install Snap packages in edge mode that we want
   community.general.snap:
     name:
-      - starship
       - zola
     channel: edge
   become: yes

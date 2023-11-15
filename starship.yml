@@ -16,6 +16,10 @@
   when: nerd_font_installed.changed
   shell: fc-cache -fv
 
+- name: Install the Starship Rust package with locked dependencies
+  community.general.cargo:
+    name: starship
+
 - name: Ensure Starship activated in .bashrc
   ansible.builtin.lineinfile:
     path: "{{ lookup('env', 'HOME') }}/.bashrc"

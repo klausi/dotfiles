@@ -133,6 +133,7 @@
       - anacron
       - apt-transport-https
       - build-essential
+      - cmake
       - code
       - curl
       - ddev
