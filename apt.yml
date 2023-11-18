@@ -152,6 +152,9 @@
       - gnome-system-monitor
       - google-chrome-stable
       - htop
+      # For Rust plotters crate.
+      - libfontconfig1-dev
+      - libfreetype6-dev
       # We need the full Libreoffice package, otherwise Libreoffice Draw
       # crashes.
       - libreoffice
