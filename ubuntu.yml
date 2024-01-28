@@ -62,7 +62,10 @@
   set_fact:
     bash_aliases:
       ag: rg
+      copilot: "gh copilot"
       drupalorg: "{{ lookup('env', 'HOME') }}/workspace/drupalorg-cli/drupalorg"
+      gce: "gh copilot explain"
+      gcs: "gh copilot suggest"
       pareview.sh: "{{ lookup('env', 'HOME') }}/workspace/pareviewsh/pareview.sh"
       s: "{{ lookup('env', 'HOME') }}/workspace/ce_scripts/helpers/ssh_connect.sh"
 

@@ -125,6 +125,19 @@
     filename: vscode
   become: yes
 
+- name: add Github CLI apt key
+  apt_key:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    keyring: /etc/apt/trusted.gpg.d/github.gpg
+    id: 2C6106201985B60E6C7AC87323F3D4EA75716059
+  become: yes
+
+- name: add Github CLI repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://cli.github.com/packages stable main"
+    filename: github-cli
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -143,6 +156,7 @@
       - firefox
       - g++
       - gcc
+      - gh
       # For GNOME system monitor shell extension.
       - gir1.2-gtop-2.0
       - gir1.2-nm-1.0
