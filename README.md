@@ -1,6 +1,6 @@
 # Ansible dotfiles
 
-My personal taste of localhost Ubuntu configuration. Tested on Ubuntu 22.04.
+My personal taste of localhost Ubuntu configuration. Tested on Ubuntu 24.04.
 
 Bootstrap on a fresh Ubuntu installation:
 

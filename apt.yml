@@ -87,25 +87,6 @@
     keyring: /etc/apt/trusted.gpg.d/yt-dlp.gpg
   become: yes
 
-- name: add nodejs apt key
-  apt_key:
-    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-    keyring: /etc/apt/trusted.gpg.d/nodesource.gpg
-    id: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280
-  become: yes
-
-- name: remove old nodejs repo file
-  ansible.builtin.file:
-    path: /etc/apt/sources.list.d/deb_nodesource_com_node_16_x.list
-    state: absent
-  become: yes
-
-- name: add nodejs repository
-  apt_repository:
-    repo: "deb https://deb.nodesource.com/node_18.x {{ ansible_lsb.codename }} main"
-    filename: nodesource
-  become: yes
-
 - name: add vscode apt key
   apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc
