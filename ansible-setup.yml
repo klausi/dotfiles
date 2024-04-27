@@ -8,7 +8,7 @@
     - community.general
   # Explicitly register cargo because Ansible might not pick it up automatically.
   environment:
-    PATH: "{{ ansible_env.PATH }}/.cargo/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
   tasks:
     - name: Gather facts we need
       ansible.builtin.setup:
