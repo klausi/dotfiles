@@ -18,6 +18,7 @@
     - import_tasks: mitogen/mitogen.yml
     - import_tasks: apt.yml
     - import_tasks: ubuntu.yml
+    - import_tasks: rust.yml
     - import_tasks: starship.yml
     - import_tasks: tilda/tilda.yml
     - import_tasks: topgrade.yml
