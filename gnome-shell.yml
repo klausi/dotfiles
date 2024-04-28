@@ -84,3 +84,8 @@
   community.general.dconf:
     key: "/org/gnome/desktop/peripherals/touchpad/tap-and-drag"
     value: "false"
+
+- name: Nautilus file manager default list-view
+  community.general.dconf:
+    key: "/org/gnome/nautilus/preferences/default-folder-viewer"
+    value: "'list-view'"
