@@ -161,6 +161,7 @@
       - libreoffice-writer
       - libssl-dev
       - make
+      - ncdu
       - net-tools
       - nodejs
       - npm
