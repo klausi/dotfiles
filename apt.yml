@@ -163,6 +163,7 @@
       - make
       - net-tools
       - nodejs
+      - npm
       - pdftk
       - php-cli
       - php-curl
