@@ -1,7 +1,7 @@
 ---
 - name: Set Mitogen version
   set_fact:
-    mitogen_version: 0.3.3
+    mitogen_version: 0.3.7
 
 - name: Check if Mitogen is installed
   stat:
