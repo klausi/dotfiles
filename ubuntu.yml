@@ -93,3 +93,8 @@
   shell: update-grub
   become: yes
   when: grub_splash.changed
+
+- name: Ensure mkcert is installed
+  ansible.builtin.shell:
+    cmd: "mkcert -install"
+    creates: /home/klausi/.local/share/mkcert
