@@ -98,3 +98,8 @@
   ansible.builtin.shell:
     cmd: "mkcert -install"
     creates: /home/klausi/.local/share/mkcert
+
+- name: Install Composer
+  ansible.builtin.shell:
+    cmd: "curl -sS https://getcomposer.org/installer | php -- --install-dir={{ lookup('env', 'HOME') }}/.local/bin --filename=composer"
+    creates: "{{ lookup('env', 'HOME') }}/.local/bin/composer"
