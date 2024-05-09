@@ -94,3 +94,28 @@
   community.general.dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/click-action"
     value: "'cycle-windows'"
+
+- name: Set text editor highlight-current-line
+  community.general.dconf:
+    key: "/org/gnome/TextEditor/highlight-current-line"
+    value: "true"
+
+- name: Set text editor ident-style
+  community.general.dconf:
+    key: "/org/gnome/TextEditor/indent-style"
+    value: "'space'"
+
+- name: Set text editor show-line-numbers
+  community.general.dconf:
+    key: "/org/gnome/TextEditor/show-line-numbers"
+    value: "true"
+
+- name: Set text editor show-right-margin
+  community.general.dconf:
+    key: "/org/gnome/TextEditor/show-right-margin"
+    value: "true"
+
+- name: Set text editor tab-width
+  community.general.dconf:
+    key: "/org/gnome/TextEditor/tab-width"
+    value: "uint32 2"
