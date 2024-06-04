@@ -119,3 +119,8 @@
   community.general.dconf:
     key: "/org/gnome/TextEditor/tab-width"
     value: "uint32 2"
+
+- name: Disable caps lock
+  community.general.dconf:
+    key: "/org/gnome/desktop/input-sources/xkb-options"
+    value: "['caps:none']"
