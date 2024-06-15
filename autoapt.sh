@@ -13,7 +13,7 @@ date
 
 # Internet is slow on Austrian trains. Check the Wifi SSID and stop in that
 # case.
-iwgetid -r | grep -q OEBB
+iwgetid -r | grep -q -E '(OEBB|WESTlan)'
 if [ "$?" -eq "0" ]; then
   echo "Skipping updates because of slow Wifi"
   exit 0
