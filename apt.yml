@@ -162,6 +162,7 @@
       - libssl-dev
       - make
       - ncdu
+      - nethogs
       - net-tools
       - nodejs
       - npm
