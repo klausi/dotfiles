@@ -147,6 +147,7 @@
       - gnome-system-monitor
       - google-chrome-stable
       - htop
+      - hunspell-de-de
       # For Rust plotters crate.
       - libfontconfig1-dev
       - libfreetype6-dev
