@@ -124,3 +124,8 @@
   community.general.dconf:
     key: "/org/gnome/desktop/input-sources/xkb-options"
     value: "['caps:none']"
+
+- name: Disable touchpad right click
+  community.general.dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/click-method"
+    value: "'none'"
