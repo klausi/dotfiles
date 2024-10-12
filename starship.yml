@@ -20,10 +20,6 @@
   community.general.cargo:
     name: starship
 
-- name: Install the cargo-update package, so that Starship gets updated with Topgrade
-  community.general.cargo:
-    name: cargo-update
-
 - name: Ensure Starship activated in .bashrc
   ansible.builtin.lineinfile:
     path: "{{ lookup('env', 'HOME') }}/.bashrc"
