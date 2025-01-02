@@ -129,3 +129,13 @@
   community.general.dconf:
     key: "/org/gnome/desktop/peripherals/touchpad/click-method"
     value: "'none'"
+
+- name: Show weekday in GNOME clock
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/clock-show-weekday"
+    value: "true"
+
+- name: Show week number in GNOME calendar
+  community.general.dconf:
+    key: "/org/gnome/desktop/calendar/show-weekdate"
+    value: "true"
