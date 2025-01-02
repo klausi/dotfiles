@@ -1,8 +1,7 @@
 ---
 - name: Set Mitogen version
   set_fact:
-    # Version 0.3.7 is broken for become password, use fixed master branch.
-    mitogen_version: 0f34e2505b0226044564a4ea0b9e1b6edf0e20de
+    mitogen_version: "0.3.19"
 
 - name: Check if Mitogen is installed
   stat:
@@ -11,7 +10,7 @@
 
 - name: Install Mitogen for better Ansible performance
   ansible.builtin.unarchive:
-    src: https://github.com/mitogen-hq/mitogen/archive/{{ mitogen_version }}.tar.gz
+    src: https://github.com/mitogen-hq/mitogen/archive/refs/tags/v{{ mitogen_version }}.tar.gz
     dest: "{{ playbook_dir }}/mitogen"
     remote_src: yes
   when: not mitogen_lib.stat.exists
