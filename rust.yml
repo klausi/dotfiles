@@ -16,8 +16,11 @@
   when: not cargo_binary.stat.exists
   shell: /tmp/sh.rustup.rs -y
 
-- name: Install global cargo packages that get updated with Topgrade
+- name: Install cargo binstall
   community.general.cargo:
-    name:
-      - cargo-update
-      - git-delta
+    name: cargo-binstall
+
+- name: Install global cargo packages that get updated with Topgrade
+  shell: cargo binstall cargo-update git-delta -y
+  register: command_output
+  changed_when: "'Installing binaries' in command_output.stdout"

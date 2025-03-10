@@ -17,8 +17,9 @@
   shell: fc-cache -fv
 
 - name: Install the Starship Rust package
-  community.general.cargo:
-    name: starship
+  shell: cargo binstall starship -y
+  register: command_output
+  changed_when: "'Installing binaries' in command_output.stdout"
 
 - name: Ensure Starship activated in .bashrc
   ansible.builtin.lineinfile:
