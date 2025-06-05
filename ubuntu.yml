@@ -103,3 +103,8 @@
   ansible.builtin.shell:
     cmd: "curl -sS https://getcomposer.org/installer | php -- --install-dir={{ lookup('env', 'HOME') }}/.local/bin --filename=composer"
     creates: "{{ lookup('env', 'HOME') }}/.local/bin/composer"
+
+- name: Copy default apps for xdg-settings
+  ansible.builtin.copy:
+    src: mimeapps.list
+    dest: "{{ lookup('env', 'HOME') }}/.config/mimeapps.list"
