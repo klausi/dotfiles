@@ -65,7 +65,7 @@
       copilot: "gh copilot"
       drupalorg: "{{ lookup('env', 'HOME') }}/workspace/drupalorg-cli/drupalorg"
       gce: "gh copilot explain"
-      gcs: "gh copilot suggest"
+      c: "ghcs -t shell"
       pareview.sh: "{{ lookup('env', 'HOME') }}/workspace/pareviewsh/pareview.sh"
       s: "{{ lookup('env', 'HOME') }}/workspace/ce_scripts/helpers/ssh_connect.sh"
 
@@ -74,6 +74,11 @@
     path: "{{ lookup('env', 'HOME') }}/.bashrc"
     line: "alias {{ item.key }}='{{ item.value }}'"
   loop: "{{ bash_aliases|dict2items }}"
+
+- name: Include Github copilot aliases
+  ansible.builtin.lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.bashrc"
+    line: 'eval "$(gh copilot alias -- bash)"'
 
 - name: Remove Canonical spam advertisements in APT output
   ansible.builtin.copy:

@@ -189,6 +189,7 @@
       - vim
       - libxml2-utils
       - vlc
+      - xsel
       - yt-dlp
     state: present
     update_cache: "{{ firefox_ppa_prio.changed }}"
