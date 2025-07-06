@@ -7,27 +7,38 @@
     state: absent
   become: yes
 
-- name: Add Mozilla Team PPA for Firefox APT version
-  apt_repository:
-    repo: 'ppa:mozillateam/ppa'
+- name: Ensure old Mozilla PPA files are absent
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/apt/preferences.d/mozillateamppa
+    - /etc/apt/sources.list.d/ppa_mozillateam_ppa_noble.list
   become: yes
 
-- name: Add Mozilla PPA GPG key
+- name: Add Mozilla GPG key
   ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
-    id: 0AB215679C571D1C8325275B9BDB3D89CE49EC21
+    id: 35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3
     keyring: /etc/apt/trusted.gpg.d/mozilla.gpg
   become: yes
 
-- name: Set Firefox PPA priority to come first
+- name: Add Mozilla APT repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.mozilla.org/apt mozilla main
+    state: present
+    filename: mozilla
+  become: yes
+
+- name: Set Firefox repo priority to come first
   ansible.builtin.copy:
     content: |
       Package: *
-      Pin: release o=LP-PPA-mozillateam
+      Pin: origin packages.mozilla.org
       Pin-Priority: 1001
-    dest: /etc/apt/preferences.d/mozillateamppa
+    dest: /etc/apt/preferences.d/mozilla
   become: yes
-  register: firefox_ppa_prio
+  register: firefox_prio
 
 - name: Add Chrome signing key
   ansible.builtin.apt_key:
@@ -51,7 +62,7 @@
 - name: Add Git PPA GPG key
   ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
-    id: E1DD270288B4E6030699E45FA1715D88E1DF1F24
+    id: F911AB184317630C59970973E363C90F8F1B6217
     keyring: /etc/apt/trusted.gpg.d/git.gpg
   become: yes
 
@@ -108,6 +119,7 @@
     components:
       - main
     signed_by: /etc/apt/trusted.gpg.d/vscode.gpg
+    architectures: amd64
   become: yes
 
 - name: add Github CLI apt key
@@ -196,5 +208,5 @@
       - xsel
       - yt-dlp
     state: present
-    update_cache: "{{ firefox_ppa_prio.changed }}"
+    update_cache: "{{ firefox_prio.changed }}"
   become: yes
