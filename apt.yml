@@ -96,14 +96,18 @@
 
 - name: remove old vscode repo file
   ansible.builtin.file:
-    path: /etc/apt/sources.list.d/packages_microsoft_com_repos_code.list
+    path: /etc/apt/sources.list.d/vscode.list
     state: absent
   become: yes
 
 - name: add vscode repository
-  apt_repository:
-    repo: deb [arch=amd64,arm64,armhf] http://packages.microsoft.com/repos/code stable main
-    filename: vscode
+  deb822_repository:
+    name: vscode
+    uris: https://packages.microsoft.com/repos/code
+    suites: stable
+    components:
+      - main
+    signed_by: /etc/apt/trusted.gpg.d/vscode.gpg
   become: yes
 
 - name: add Github CLI apt key
