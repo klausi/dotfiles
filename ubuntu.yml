@@ -21,7 +21,7 @@
 - name: Install Snap packages we want
   community.general.snap:
     name:
-      - discord
+      - joplin-desktop
       - yq
       - zoom-client
   become: yes
@@ -65,7 +65,7 @@
       copilot: "gh copilot"
       drupalorg: "{{ lookup('env', 'HOME') }}/workspace/drupalorg-cli/drupalorg"
       gce: "gh copilot explain"
-      c: "ghcs -t shell"
+      c: "gh copilot suggest -t shell"
       pareview.sh: "{{ lookup('env', 'HOME') }}/workspace/pareviewsh/pareview.sh"
       s: "{{ lookup('env', 'HOME') }}/workspace/ce_scripts/helpers/ssh_connect.sh"
 
