@@ -113,3 +113,25 @@
   ansible.builtin.copy:
     src: mimeapps.list
     dest: "{{ lookup('env', 'HOME') }}/.config/mimeapps.list"
+
+- name: Ensure de_AT locale entry exists (uncomment/add line)
+  ansible.builtin.lineinfile:
+    path: /etc/locale.gen
+    regexp: '^#?de_AT\.UTF-8\s+UTF-8'
+    line: 'de_AT.UTF-8 UTF-8'
+    state: present
+  become: yes
+  register: de_at_locale
+
+- name: Set LC_TIME to de_AT.utf8
+  ansible.builtin.lineinfile:
+    path: /etc/default/locale
+    regexp: '^LC_TIME='
+    line: 'LC_TIME=de_AT.utf8'
+    create: yes
+  become: yes
+
+- name: Generate DE locale
+  become: yes
+  ansible.builtin.command: locale-gen de_AT.UTF-8
+  when: de_at_locale.changed
