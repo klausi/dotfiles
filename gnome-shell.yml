@@ -139,3 +139,13 @@
   community.general.dconf:
     key: "/org/gnome/desktop/calendar/show-weekdate"
     value: "true"
+
+- name: Disable multiple workspaces, we only want one
+  community.general.dconf:
+    key: "/org/gnome/mutter/dynamic-workspaces"
+    value: "false"
+
+- name: Set workspace switcher to only show current workspace
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/num-workspaces"
+    value: "1"
