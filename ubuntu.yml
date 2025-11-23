@@ -40,6 +40,20 @@
     mode: preserve
   become: yes
 
+- name: Disable APT systemd timer
+  ansible.builtin.systemd:
+    name: apt-daily.timer
+    enabled: no
+    state: stopped
+  become: yes
+
+- name: Disable APT upgrade systemd timer
+  ansible.builtin.systemd:
+    name: apt-daily-upgrade.timer
+    enabled: no
+    state: stopped
+  become: yes
+
 - name: Make Firefox the default browser
   community.general.alternatives:
     name: x-www-browser
