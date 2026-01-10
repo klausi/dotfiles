@@ -135,6 +135,18 @@
     filename: github-cli
   become: yes
 
+- name: Add PHP PPA to get PHP 8.4
+  apt_repository:
+    repo: 'ppa:ondrej/php'
+  become: yes
+
+- name: Add PHP PPA GPG key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: B8DC7E53946656EFBCE4C1DD71DAEAAB4AD4CAB6
+    keyring: /etc/apt/trusted.gpg.d/ondrej_php.gpg
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -185,11 +197,11 @@
       - nodejs
       - npm
       - pdftk
-      - php-cli
-      - php-curl
-      - php-gd
-      - php-mbstring
-      - php-simplexml
+      - php8.4-cli
+      - php8.4-curl
+      - php8.4-gd
+      - php8.4-mbstring
+      - php8.4-simplexml
       - pkg-config
       - p7zip-full
       - pwgen
