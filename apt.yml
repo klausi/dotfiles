@@ -197,11 +197,14 @@
       - nodejs
       - npm
       - pdftk
+      - php8.4-bcmath
       - php8.4-cli
       - php8.4-curl
       - php8.4-gd
+      - php8.4-gmp
       - php8.4-mbstring
       - php8.4-simplexml
+      - php8.4-zip
       - pkg-config
       - p7zip-full
       - pwgen
