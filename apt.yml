@@ -66,6 +66,39 @@
     keyring: /etc/apt/trusted.gpg.d/git.gpg
   become: yes
 
+- name: Remove conflicting Docker packages
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+      - docker-compose-v2
+      - docker-doc
+      - podman-docker
+      - containerd
+      - runc
+    state: absent
+  become: yes
+
+- name: Add Docker GPG key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    keyring: /etc/apt/trusted.gpg.d/docker.gpg
+  become: yes
+
+- name: Add Docker APT repository
+  deb822_repository:
+    name: docker
+    types:
+      - deb
+    uris: https://download.docker.com/linux/ubuntu
+    suites: "{{ ansible_distribution_release }}"
+    components:
+      - stable
+    architectures: amd64
+    signed_by: /etc/apt/trusted.gpg.d/docker.gpg
+  become: yes
+
 - name: Add DDEV signing key
   ansible.builtin.apt_key:
     url: https://apt.fury.io/drud/gpg.key
@@ -155,9 +188,14 @@
       - anacron
       - apt-transport-https
       - build-essential
+      - ca-certificates
       - cmake
       - code
       - curl
+      - docker-buildx-plugin
+      - docker-ce
+      - docker-ce-cli
+      - docker-compose-plugin
       - ddev
       - ffmpeg
       # Native Firefox is much faster than the snap version, see

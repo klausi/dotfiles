@@ -16,10 +16,15 @@
   when: nerd_font_installed.changed
   shell: fc-cache -fv
 
+- name: Check installed cargo packages
+  shell: cargo install --list
+  register: cargo_install_list
+  changed_when: false
+
 - name: Install the Starship Rust package
   shell: cargo binstall starship -y
-  register: command_output
-  changed_when: "'Installing binaries' in command_output.stdout"
+  # Only run if starship is not already installed for better performance.
+  when: cargo_install_list.stdout is not search('(?m)^starship v')
 
 - name: Ensure Starship activated in .bashrc
   ansible.builtin.lineinfile:

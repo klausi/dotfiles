@@ -20,7 +20,15 @@
   community.general.cargo:
     name: cargo-binstall
 
+- name: Check installed cargo packages
+  shell: cargo install --list
+  register: cargo_install_list
+  changed_when: false
+
 - name: Install global cargo packages that get updated with Topgrade
-  shell: cargo binstall cargo-update git-delta -y
-  register: command_output
-  changed_when: "'Installing binaries' in command_output.stdout"
+  shell: cargo binstall {{ item }} -y
+  loop:
+    - cargo-update
+    - git-delta
+  # Only run if the package is not already installed for better performance.
+  when: cargo_install_list.stdout is not search('(?m)^' ~ (item | regex_escape) ~ ' v')
