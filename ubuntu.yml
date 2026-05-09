@@ -33,6 +33,19 @@
     channel: edge
   become: yes
 
+- name: Read Snap automatic refresh setting
+  ansible.builtin.command:
+    cmd: snap get system -d refresh
+  register: snap_refresh_setting
+  changed_when: false
+  become: yes
+
+- name: Hold Snap automatic refreshes because we have our own update script
+  ansible.builtin.command:
+    cmd: snap set system refresh.hold=forever
+  when: (snap_refresh_setting.stdout | from_json).refresh.hold is not defined or (snap_refresh_setting.stdout | from_json).refresh.hold != 'forever'
+  become: yes
+
 - name: Put auto APT script into place for Anacron
   ansible.builtin.copy:
     src: autoapt.sh

@@ -159,7 +159,6 @@
       - code
       - curl
       - ddev
-      - docker.io
       - ffmpeg
       # Native Firefox is much faster than the snap version, see
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1748076
