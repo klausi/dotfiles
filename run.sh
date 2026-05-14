@@ -8,4 +8,4 @@ if ! which ansible > /dev/null; then
 fi
 
 # Run our playbook now.
-ansible-playbook ansible-setup.yml -i hosts --ask-become-pass
+ANSIBLR_BECOME_EXE=sudo.ws ansible-playbook ansible-setup.yml -i hosts --ask-become-pass

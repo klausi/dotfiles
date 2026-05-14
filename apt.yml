@@ -17,10 +17,10 @@
   become: yes
 
 - name: Add Mozilla GPG key
-  ansible.builtin.apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: 35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3
-    keyring: /etc/apt/trusted.gpg.d/mozilla.gpg
+  ansible.builtin.get_url:
+    url: https://repo.mozilla.org/mozillalinux.gpg
+    dest: /etc/apt/trusted.gpg.d/mozilla.gpg
+    force: no
   become: yes
 
 - name: Add Mozilla APT repository into sources list
@@ -41,10 +41,10 @@
   register: firefox_prio
 
 - name: Add Chrome signing key
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
-    id: EB4C1BFD4F042F6DDDCCEC917721F63BD38B4796
-    keyring: /etc/apt/trusted.gpg.d/google-chrome.gpg
+    dest: /etc/apt/trusted.gpg.d/google-chrome.gpg
+    force: no
   become: yes
 
 - name: Add Google Chrome APT repository into sources list
@@ -60,10 +60,10 @@
   become: yes
 
 - name: Add Git PPA GPG key
-  ansible.builtin.apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: F911AB184317630C59970973E363C90F8F1B6217
-    keyring: /etc/apt/trusted.gpg.d/git.gpg
+  ansible.builtin.get_url:
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF911AB184317630C59970973E363C90F8F1B6217&options=mr&exact=on&fingerprint=on
+    dest: /etc/apt/trusted.gpg.d/git.gpg
+    force: no
   become: yes
 
 - name: Remove conflicting Docker packages
@@ -80,10 +80,10 @@
   become: yes
 
 - name: Add Docker GPG key
-  ansible.builtin.apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-    keyring: /etc/apt/trusted.gpg.d/docker.gpg
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/trusted.gpg.d/docker.gpg
+    force: no
   become: yes
 
 - name: Add Docker APT repository
@@ -100,10 +100,10 @@
   become: yes
 
 - name: Add DDEV signing key
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: https://apt.fury.io/drud/gpg.key
-    id: DBD730A3A581BDAC98BAF17FC16711FC1179C7CA
-    keyring: /etc/apt/trusted.gpg.d/ddev.gpg
+    dest: /etc/apt/trusted.gpg.d/ddev.gpg
+    force: no
   become: yes
 
 - name: Add DDEV APT repository into sources list
@@ -125,17 +125,17 @@
   become: yes
 
 - name: Add yt-dlp PPA GPG key
-  ansible.builtin.apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: CEC312CC5ED8215A6E0EFC49B90E9186F0E836FB
-    keyring: /etc/apt/trusted.gpg.d/yt-dlp.gpg
+  ansible.builtin.get_url:
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xCEC312CC5ED8215A6E0EFC49B90E9186F0E836FB&options=mr&exact=on&fingerprint=on
+    dest: /etc/apt/trusted.gpg.d/yt-dlp.gpg
+    force: no
   become: yes
 
 - name: add vscode apt key
-  apt_key:
+  ansible.builtin.get_url:
     url: https://packages.microsoft.com/keys/microsoft.asc
-    keyring: /etc/apt/trusted.gpg.d/vscode.gpg
-    id: BC528686B50D79E339D3721CEB3E94ADBE1229CF
+    dest: /etc/apt/trusted.gpg.d/vscode.gpg
+    force: no
   become: yes
 
 - name: remove old vscode repo file
@@ -156,10 +156,10 @@
   become: yes
 
 - name: add Github CLI apt key
-  apt_key:
+  ansible.builtin.get_url:
     url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
-    keyring: /etc/apt/trusted.gpg.d/github.gpg
-    id: 2C6106201985B60E6C7AC87323F3D4EA75716059
+    dest: /etc/apt/trusted.gpg.d/github.gpg
+    force: no
   become: yes
 
 - name: add Github CLI repository
@@ -174,10 +174,10 @@
   become: yes
 
 - name: Add PHP PPA GPG key
-  ansible.builtin.apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: B8DC7E53946656EFBCE4C1DD71DAEAAB4AD4CAB6
-    keyring: /etc/apt/trusted.gpg.d/ondrej_php.gpg
+  ansible.builtin.get_url:
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xB8DC7E53946656EFBCE4C1DD71DAEAAB4AD4CAB6&options=mr&exact=on&fingerprint=on
+    dest: /etc/apt/trusted.gpg.d/ondrej_php.gpg
+    force: no
   become: yes
 
 - name: Install Ubuntu packages we want
