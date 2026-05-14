@@ -48,19 +48,25 @@
 - name: Add Chrome signing key
   ansible.builtin.get_url:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
-    dest: /etc/apt/trusted.gpg.d/google-chrome.gpg
+    dest: /etc/apt/trusted.gpg.d/google-chrome.asc
     force: no
   become: yes
 
 - name: Add Google Chrome APT repository into sources list
-  ansible.builtin.apt_repository:
-    repo: deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main
-    state: present
-    filename: google-chrome
+  ansible.builtin.deb822_repository:
+    name: google-chrome
+    types:
+      - deb
+    uris: https://dl.google.com/linux/chrome/deb/
+    suites: stable
+    components:
+      - main
+    architectures: amd64
+    signed_by: /etc/apt/trusted.gpg.d/google-chrome.asc
   become: yes
 
 - name: Add Git PPA to get autoSetupRemote support
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: 'ppa:git-core/ppa'
   become: yes
 
@@ -107,25 +113,30 @@
 - name: Add DDEV signing key
   ansible.builtin.get_url:
     url: https://apt.fury.io/drud/gpg.key
-    dest: /etc/apt/trusted.gpg.d/ddev.gpg
+    dest: /etc/apt/trusted.gpg.d/ddev.asc
     force: no
   become: yes
 
 - name: Add DDEV APT repository into sources list
-  ansible.builtin.apt_repository:
-    repo: deb https://apt.fury.io/drud/ * *
-    state: present
-    filename: ddev
+  ansible.builtin.deb822_repository:
+    name: ddev
+    types:
+      - deb
+    uris: https://apt.fury.io/drud/
+    suites: "*"
+    components:
+      - "*"
+    signed_by: /etc/apt/trusted.gpg.d/ddev.asc
   become: yes
 
 - name: Remove old yt-dlp PPA
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: 'ppa:yt-dlp/stable'
     state: absent
   become: yes
 
 - name: Add yt-dlp PPA
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: 'ppa:tomtomtom/yt-dlp'
   become: yes
 
@@ -139,7 +150,7 @@
 - name: add vscode apt key
   ansible.builtin.get_url:
     url: https://packages.microsoft.com/keys/microsoft.asc
-    dest: /etc/apt/trusted.gpg.d/vscode.gpg
+    dest: /etc/apt/trusted.gpg.d/vscode.asc
     force: no
   become: yes
 
@@ -150,13 +161,15 @@
   become: yes
 
 - name: add vscode repository
-  deb822_repository:
+  ansible.builtin.deb822_repository:
     name: vscode
+    types:
+      - deb
     uris: https://packages.microsoft.com/repos/code
     suites: stable
     components:
       - main
-    signed_by: /etc/apt/trusted.gpg.d/vscode.gpg
+    signed_by: /etc/apt/trusted.gpg.d/vscode.asc
     architectures: amd64
   become: yes
 
@@ -168,13 +181,20 @@
   become: yes
 
 - name: add Github CLI repository
-  apt_repository:
-    repo: "deb [arch=amd64] https://cli.github.com/packages stable main"
-    filename: github-cli
+  ansible.builtin.deb822_repository:
+    name: github-cli
+    types:
+      - deb
+    uris: https://cli.github.com/packages
+    suites: stable
+    components:
+      - main
+    architectures: amd64
+    signed_by: /etc/apt/trusted.gpg.d/github.gpg
   become: yes
 
 - name: Add PHP PPA to get PHP 8.4
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: 'ppa:ondrej/php'
   become: yes
 
