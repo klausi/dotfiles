@@ -189,14 +189,21 @@
   become: yes
 
 - name: Add PHP PPA to get PHP 8.4
-  ansible.builtin.apt_repository:
-    repo: 'ppa:ondrej/php'
+  ansible.builtin.deb822_repository:
+    name: ondrej-php
+    types:
+      - deb
+    uris: https://ppa.launchpadcontent.net/ondrej/php/ubuntu
+    suites: "{{ ansible_distribution_release }}"
+    components:
+      - main
+    signed_by: /etc/apt/trusted.gpg.d/ondrej_php.asc
   become: yes
 
 - name: Add PHP PPA GPG key
   ansible.builtin.get_url:
     url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xB8DC7E53946656EFBCE4C1DD71DAEAAB4AD4CAB6&options=mr&exact=on&fingerprint=on
-    dest: /etc/apt/trusted.gpg.d/ondrej_php.gpg
+    dest: /etc/apt/trusted.gpg.d/ondrej_php.asc
     force: no
   become: yes
 
