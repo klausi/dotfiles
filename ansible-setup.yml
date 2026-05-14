@@ -18,7 +18,7 @@
     # Run the git setup first because we prompt for personal data input there if
     # config does not exist yet.
     - import_tasks: git/git.yml
-    #- import_tasks: mitogen/mitogen.yml
+    - import_tasks: mitogen/mitogen.yml
     - import_tasks: apt.yml
     - import_tasks: ubuntu.yml
     - import_tasks: rust.yml
