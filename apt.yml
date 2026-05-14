@@ -18,7 +18,7 @@
 
 - name: Add Mozilla GPG key
   ansible.builtin.get_url:
-    url: https://repo.mozilla.org/mozillalinux.gpg
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3&options=mr&exact=on&fingerprint=on
     dest: /etc/apt/trusted.gpg.d/mozilla.gpg
     force: no
   become: yes
