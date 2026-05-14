@@ -7,8 +7,8 @@
 - name: Set a list of GNOME extension we want
   set_fact:
     extensions:
-      system-monitor-next@paradoxxx.zero.gmail.com: https://extensions.gnome.org/extension-data/system-monitor-nextparadoxxx.zero.gmail.com.v42.shell-extension.zip
-      Hide_Activities@shay.shayel.org: https://extensions.gnome.org/extension-data/Hide_Activitiesshay.shayel.org.v13.shell-extension.zip
+      system-monitor-next@paradoxxx.zero.gmail.com: https://extensions.gnome.org/extension-data/system-monitor-nextparadoxxx.zero.gmail.com.v83.shell-extension.zip
+      Hide_Activities@shay.shayel.org: https://extensions.gnome.org/extension-data/Hide_Activitiesshay.shayel.org.v23.shell-extension.zip
 
 - name: Ensure GNOME extension directories exist
   file:
