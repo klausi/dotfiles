@@ -123,16 +123,23 @@
     state: absent
   become: yes
 
-- name: Add yt-dlp PPA
-  ansible.builtin.apt_repository:
-    repo: 'ppa:tomtomtom/yt-dlp'
-  become: yes
-
 - name: Add yt-dlp PPA GPG key
   ansible.builtin.get_url:
     url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xCEC312CC5ED8215A6E0EFC49B90E9186F0E836FB&options=mr&exact=on&fingerprint=on
-    dest: /etc/apt/trusted.gpg.d/yt-dlp.gpg
+    dest: /etc/apt/trusted.gpg.d/yt-dlp.asc
     force: no
+  become: yes
+
+- name: Add yt-dlp PPA
+  ansible.builtin.deb822_repository:
+    name: yt-dlp
+    types:
+      - deb
+    uris: https://ppa.launchpadcontent.net/tomtomtom/yt-dlp/ubuntu
+    suites: "{{ ansible_distribution_release }}"
+    components:
+      - main
+    signed_by: /etc/apt/trusted.gpg.d/yt-dlp.asc
   become: yes
 
 - name: add vscode apt key
