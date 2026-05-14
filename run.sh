@@ -8,4 +8,5 @@ if ! which ansible > /dev/null; then
 fi
 
 # Run our playbook now.
-ansible-playbook ansible-setup.yml -i hosts --ask-become-pass
+# Ansible does not work yet with the sudo-rs, fallback to sudo.ws for now.
+ANSIBLE_BECOME_EXE=sudo.ws ansible-playbook ansible-setup.yml -i hosts --ask-become-pass

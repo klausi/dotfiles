@@ -8,7 +8,6 @@
   set_fact:
     extensions:
       system-monitor-next@paradoxxx.zero.gmail.com: https://extensions.gnome.org/extension-data/system-monitor-nextparadoxxx.zero.gmail.com.v42.shell-extension.zip
-      openweather-extension@penguin-teal.github.io: https://extensions.gnome.org/extension-data/openweather-extensionpenguin-teal.github.io.v13.shell-extension.zip
       Hide_Activities@shay.shayel.org: https://extensions.gnome.org/extension-data/Hide_Activitiesshay.shayel.org.v13.shell-extension.zip
 
 - name: Ensure GNOME extension directories exist
@@ -28,17 +27,7 @@
 - name: Set enabled GNOME extensions
   community.general.dconf:
     key: "/org/gnome/shell/enabled-extensions"
-    value: "['Hide_Activities@shay.shayel.org', 'system-monitor-next@paradoxxx.zero.gmail.com', 'openweather-extension@penguin-teal.github.io']"
-
-- name: Set weather temperature decimal point
-  community.general.dconf:
-    key: "/org/gnome/shell/extensions/openweather/decimal-places"
-    value: "0"
-
-- name: Set weather location
-  community.general.dconf:
-    key: "/org/gnome/shell/extensions/openweather/city"
-    value: "'48.2083537,16.3725042>Wien, 1010, Österreich >0'"
+    value: "['Hide_Activities@shay.shayel.org', 'system-monitor-next@paradoxxx.zero.gmail.com']"
 
 - name: Move Dock to the right
   community.general.dconf:
