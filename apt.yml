@@ -65,18 +65,6 @@
     signed_by: /etc/apt/trusted.gpg.d/google-chrome.asc
   become: yes
 
-- name: Add Git PPA to get autoSetupRemote support
-  ansible.builtin.apt_repository:
-    repo: 'ppa:git-core/ppa'
-  become: yes
-
-- name: Add Git PPA GPG key
-  ansible.builtin.get_url:
-    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF911AB184317630C59970973E363C90F8F1B6217&options=mr&exact=on&fingerprint=on
-    dest: /etc/apt/trusted.gpg.d/git.gpg
-    force: no
-  become: yes
-
 - name: Remove conflicting Docker packages
   apt:
     name:
