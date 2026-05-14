@@ -91,7 +91,7 @@
     types:
       - deb
     uris: https://download.docker.com/linux/ubuntu
-    suites: "{{ ansible_distribution_release }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
     components:
       - stable
     architectures: amd64
@@ -136,7 +136,7 @@
     types:
       - deb
     uris: https://ppa.launchpadcontent.net/tomtomtom/yt-dlp/ubuntu
-    suites: "{{ ansible_distribution_release }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
     components:
       - main
     signed_by: /etc/apt/trusted.gpg.d/yt-dlp.asc
