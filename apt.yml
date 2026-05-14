@@ -19,15 +19,20 @@
 - name: Add Mozilla GPG key
   ansible.builtin.get_url:
     url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3&options=mr&exact=on&fingerprint=on
-    dest: /etc/apt/trusted.gpg.d/mozilla.gpg
+    dest: /etc/apt/trusted.gpg.d/mozilla.asc
     force: no
   become: yes
 
 - name: Add Mozilla APT repository into sources list
-  ansible.builtin.apt_repository:
-    repo: deb https://packages.mozilla.org/apt mozilla main
-    state: present
-    filename: mozilla
+  ansible.builtin.deb822_repository:
+    name: mozilla
+    types:
+      - deb
+    uris: https://packages.mozilla.org/apt
+    suites: mozilla
+    components:
+      - main
+    signed_by: /etc/apt/trusted.gpg.d/mozilla.asc
   become: yes
 
 - name: Set Firefox repo priority to come first
