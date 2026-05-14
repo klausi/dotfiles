@@ -81,7 +81,7 @@
 - name: Add Docker GPG key
   ansible.builtin.get_url:
     url: https://download.docker.com/linux/ubuntu/gpg
-    dest: /etc/apt/trusted.gpg.d/docker.gpg
+    dest: /etc/apt/trusted.gpg.d/docker.asc
     force: no
   become: yes
 
@@ -95,7 +95,7 @@
     components:
       - stable
     architectures: amd64
-    signed_by: /etc/apt/trusted.gpg.d/docker.gpg
+    signed_by: /etc/apt/trusted.gpg.d/docker.asc
   become: yes
 
 - name: Add DDEV signing key
