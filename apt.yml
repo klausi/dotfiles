@@ -14,6 +14,7 @@
   loop:
     - /etc/apt/preferences.d/mozillateamppa
     - /etc/apt/sources.list.d/ppa_mozillateam_ppa_noble.list
+  register: mozilla_old_ppa_files
   become: yes
 
 - name: Add Mozilla GPG key
@@ -33,6 +34,7 @@
     components:
       - main
     signed_by: /etc/apt/trusted.gpg.d/mozilla.asc
+  register: mozilla_repo
   become: yes
 
 - name: Set Firefox repo priority to come first
@@ -63,6 +65,7 @@
       - main
     architectures: amd64
     signed_by: /etc/apt/trusted.gpg.d/google-chrome.asc
+  register: chrome_repo
   become: yes
 
 - name: Remove conflicting Docker packages
@@ -96,6 +99,7 @@
       - stable
     architectures: amd64
     signed_by: /etc/apt/trusted.gpg.d/docker.asc
+  register: docker_repo
   become: yes
 
 - name: Add DDEV signing key
@@ -115,12 +119,14 @@
     components:
       - "*"
     signed_by: /etc/apt/trusted.gpg.d/ddev.asc
+  register: ddev_repo
   become: yes
 
 - name: Remove old yt-dlp PPA
   ansible.builtin.apt_repository:
     repo: 'ppa:yt-dlp/stable'
     state: absent
+  register: yt_dlp_old_ppa
   become: yes
 
 - name: Add yt-dlp PPA GPG key
@@ -140,6 +146,7 @@
     components:
       - main
     signed_by: /etc/apt/trusted.gpg.d/yt-dlp.asc
+  register: yt_dlp_repo
   become: yes
 
 - name: add vscode apt key
@@ -153,6 +160,7 @@
   ansible.builtin.file:
     path: /etc/apt/sources.list.d/vscode.list
     state: absent
+  register: vscode_old_repo_file
   become: yes
 
 - name: add vscode repository
@@ -166,6 +174,7 @@
       - main
     signed_by: /etc/apt/trusted.gpg.d/vscode.asc
     architectures: amd64
+  register: vscode_repo
   become: yes
 
 - name: add Github CLI apt key
@@ -186,6 +195,7 @@
       - main
     architectures: amd64
     signed_by: /etc/apt/trusted.gpg.d/github.gpg
+  register: github_repo
   become: yes
 
 - name: Add Cloudflare apt key
@@ -205,6 +215,7 @@
     components:
       - main
     signed_by: /etc/apt/trusted.gpg.d/cloudflare-main.gpg
+  register: cloudflared_repo
   become: yes
 
 - name: Install Ubuntu packages we want
@@ -288,5 +299,17 @@
       - xsel
       - yt-dlp
     state: present
-    update_cache: "{{ firefox_prio.changed }}"
+    update_cache: "{{
+      mozilla_old_ppa_files.changed
+      or mozilla_repo.changed
+      or chrome_repo.changed
+      or docker_repo.changed
+      or ddev_repo.changed
+      or yt_dlp_old_ppa.changed
+      or yt_dlp_repo.changed
+      or vscode_old_repo_file.changed
+      or vscode_repo.changed
+      or github_repo.changed
+      or cloudflared_repo.changed
+    }}"
   become: yes
