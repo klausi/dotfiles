@@ -124,6 +124,11 @@
     key: "/org/gnome/desktop/interface/clock-show-weekday"
     value: "true"
 
+- name: Enable middle-click primary paste in GTK apps
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/gtk-enable-primary-paste"
+    value: "true"
+
 - name: Show week number in GNOME calendar
   community.general.dconf:
     key: "/org/gnome/desktop/calendar/show-weekdate"
