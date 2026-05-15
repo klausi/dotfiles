@@ -79,6 +79,16 @@
     key: "/org/gnome/nautilus/preferences/default-folder-viewer"
     value: "'list-view'"
 
+- name: Nautilus list-view icon size small
+  community.general.dconf:
+    key: "/org/gnome/nautilus/list-view/default-zoom-level"
+    value: "'small'"
+
+- name: Nautilus icon-view icon size small
+  community.general.dconf:
+    key: "/org/gnome/nautilus/icon-view/default-zoom-level"
+    value: "'small'"
+
 - name: Set Dash to Dock click action to cycle windows
   community.general.dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/click-action"
