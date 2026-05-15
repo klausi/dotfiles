@@ -188,6 +188,25 @@
     signed_by: /etc/apt/trusted.gpg.d/github.gpg
   become: yes
 
+- name: Add Cloudflare apt key
+  ansible.builtin.get_url:
+    url: https://pkg.cloudflare.com/cloudflare-main.gpg
+    dest: /etc/apt/trusted.gpg.d/cloudflare-main.gpg
+    force: no
+  become: yes
+
+- name: Add Cloudflared APT repository
+  ansible.builtin.deb822_repository:
+    name: cloudflared
+    types:
+      - deb
+    uris: https://pkg.cloudflare.com/cloudflared
+    suites: any
+    components:
+      - main
+    signed_by: /etc/apt/trusted.gpg.d/cloudflare-main.gpg
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -199,6 +218,7 @@
       - ca-certificates
       - cmake
       - code
+      - cloudflared
       - curl
       - docker-buildx-plugin
       - docker-ce
