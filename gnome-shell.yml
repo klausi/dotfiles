@@ -124,6 +124,11 @@
     key: "/org/gnome/desktop/input-sources/xkb-options"
     value: "['caps:none']"
 
+- name: Enable Num Lock by default
+  community.general.dconf:
+    key: "/org/gnome/desktop/peripherals/keyboard/numlock-state"
+    value: "true"
+
 - name: Disable touchpad right click
   community.general.dconf:
     key: "/org/gnome/desktop/peripherals/touchpad/click-method"
