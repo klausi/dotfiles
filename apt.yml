@@ -218,6 +218,26 @@
   register: cloudflared_repo
   become: yes
 
+- name: Add Yarn apt key
+  ansible.builtin.get_url:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    dest: /etc/apt/trusted.gpg.d/yarn.asc
+    force: no
+  become: yes
+
+- name: Add Yarn APT repository
+  ansible.builtin.deb822_repository:
+    name: yarn
+    types:
+      - deb
+    uris: https://dl.yarnpkg.com/debian/
+    suites: stable
+    components:
+      - main
+    signed_by: /etc/apt/trusted.gpg.d/yarn.asc
+  register: yarn_repo
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -299,6 +319,7 @@
       - vlc
       - iw
       - xsel
+      - yarn
       - yt-dlp
     state: present
     update_cache: "{{
@@ -313,5 +334,6 @@
       or vscode_repo.changed
       or github_repo.changed
       or cloudflared_repo.changed
+      or yarn_repo.changed
     }}"
   become: yes
