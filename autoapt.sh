@@ -13,8 +13,14 @@ date
 
 # Internet is slow on Austrian trains. Check the Wifi SSID and stop in that
 # case.
-iwgetid -r | grep -q -E '(OEBB|WESTlan)'
-if [ "$?" -eq "0" ]; then
+ssid=""
+if command -v nmcli >/dev/null 2>&1; then
+  ssid="$(nmcli -t -f active,ssid dev wifi | awk -F: '$1 == "yes" { print $2; exit }')"
+elif command -v iw >/dev/null 2>&1; then
+  ssid="$(iw dev | awk '$1 == "ssid" { print $2; exit }')"
+fi
+
+if printf '%s' "$ssid" | grep -q -E '(OEBB|WESTlan)'; then
   echo "Skipping updates because of slow Wifi"
   exit 0
 fi

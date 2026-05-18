@@ -270,6 +270,7 @@
       - ncdu
       - nethogs
       - net-tools
+      - network-manager
       - nodejs
       - npm
       - pdftk
@@ -296,6 +297,7 @@
       - vim
       - libxml2-utils
       - vlc
+      - iw
       - xsel
       - yt-dlp
     state: present
