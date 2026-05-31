@@ -286,6 +286,12 @@
       - libreoffice-gtk3
       - libreoffice-writer
       - libssl-dev
+      # For Playwright.
+      - libicu78
+      - libwoff1
+      - libevent-2.1-7t64
+      - libavif16
+      - libmanette-0.2-0
       - make
       - ncdu
       - nethogs
