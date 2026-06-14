@@ -94,6 +94,11 @@
     key: "/org/gnome/shell/extensions/dash-to-dock/click-action"
     value: "'cycle-windows'"
 
+- name: Set pinned GNOME Dock apps
+  community.general.dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop', 'org.gnome.TextEditor.desktop', 'google-chrome.desktop', 'org.gnome.Calculator.desktop']"
+
 - name: Set text editor highlight-current-line
   community.general.dconf:
     key: "/org/gnome/TextEditor/highlight-current-line"
