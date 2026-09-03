@@ -20,6 +20,7 @@
     - import_tasks: git/git.yml
     - import_tasks: mitogen/mitogen.yml
     - import_tasks: apt.yml
+    - import_tasks: bat/bat.yml
     - import_tasks: ubuntu.yml
     - import_tasks: rust.yml
     - import_tasks: starship.yml

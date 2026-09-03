@@ -1,0 +1,15 @@
+---
+- name: Ensure bat syntaxes directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/bat/syntaxes"
+    state: directory
+
+- name: Put PHP syntax definition into place
+  ansible.builtin.copy:
+    src: PHP.sublime-syntax
+    dest: "{{ lookup('env', 'HOME') }}/.config/bat/syntaxes/PHP.sublime-syntax"
+  register: bat_php_syntax
+
+- name: Rebuild bat cache
+  when: bat_php_syntax.changed
+  shell: batcat cache --build

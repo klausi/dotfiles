@@ -245,6 +245,7 @@
       # https://klau.si/blog/fully-hidden-automatic-system-updates-ubuntu/
       - anacron
       - apt-transport-https
+      - bat
       - build-essential
       - ca-certificates
       - cmake
