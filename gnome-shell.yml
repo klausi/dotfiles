@@ -104,7 +104,7 @@
 - name: Set pinned GNOME Dock apps
   community.general.dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'code.desktop', 'org.gnome.TextEditor.desktop', 'google-chrome.desktop', 'org.gnome.Calculator.desktop']"
+    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'com.microsoft.VSCode.desktop', 'org.gnome.TextEditor.desktop', 'google-chrome.desktop', 'org.gnome.Calculator.desktop']"
 
 - name: Set text editor highlight-current-line
   community.general.dconf:
