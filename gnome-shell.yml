@@ -10,19 +10,26 @@
       system-monitor-next@paradoxxx.zero.gmail.com: https://extensions.gnome.org/extension-data/system-monitor-nextparadoxxx.zero.gmail.com.v83.shell-extension.zip
       Hide_Activities@shay.shayel.org: https://extensions.gnome.org/extension-data/Hide_Activitiesshay.shayel.org.v23.shell-extension.zip
 
-- name: Ensure GNOME extension directories exist
-  file:
+- name: Check GNOME extension directories
+  ansible.builtin.stat:
     path: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/{{ item.key }}"
-    state: directory
   loop: "{{ extensions|dict2items }}"
+  register: extension_directories
+
+- name: Create missing GNOME extension directories
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/{{ item.item.key }}"
+    state: directory
+  loop: "{{ extension_directories.results }}"
+  when: not item.stat.exists
 
 - name: Install GNOME extensions
   ansible.builtin.unarchive:
-    src: "{{ item.value }}"
-    dest: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/{{ item.key }}"
-    creates: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/{{ item.key }}/metadata.json"
+    src: "{{ item.item.value }}"
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/gnome-shell/extensions/{{ item.item.key }}"
     remote_src: yes
-  loop: "{{ extensions|dict2items }}"
+  loop: "{{ extension_directories.results }}"
+  when: not item.stat.exists
 
 - name: Set enabled GNOME extensions
   community.general.dconf:
