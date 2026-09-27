@@ -26,13 +26,6 @@
       - zoom-client
   become: yes
 
-- name: Install Snap packages in edge mode that we want
-  community.general.snap:
-    name:
-      - zola
-    channel: edge
-  become: yes
-
 - name: Read Snap automatic refresh setting
   ansible.builtin.command:
     cmd: snap get system -d refresh

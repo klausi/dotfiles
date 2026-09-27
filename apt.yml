@@ -238,6 +238,27 @@
   register: yarn_repo
   become: yes
 
+- name: Add pkghaus signing key
+  ansible.builtin.get_url:
+    url: https://apt.pkg.haus/pkghaus-archive-keyring.gpg
+    dest: /usr/share/keyrings/pkghaus-archive-keyring.gpg
+    mode: '0644'
+  register: pkghaus_key
+  become: yes
+
+- name: Add pkghaus APT repository
+  ansible.builtin.deb822_repository:
+    name: pkghaus
+    types:
+      - deb
+    uris: https://apt.pkg.haus
+    suites: testing
+    components:
+      - main
+    signed_by: /usr/share/keyrings/pkghaus-archive-keyring.gpg
+  register: pkghaus_repo
+  become: yes
+
 - name: Install Ubuntu packages we want
   apt:
     name:
@@ -328,6 +349,7 @@
       - xsel
       - yarn
       - yt-dlp
+      - zola
     state: present
     update_cache: "{{
       mozilla_old_ppa_files.changed
@@ -342,5 +364,7 @@
       or github_repo.changed
       or cloudflared_repo.changed
       or yarn_repo.changed
+      or pkghaus_key.changed
+      or pkghaus_repo.changed
     }}"
   become: yes
