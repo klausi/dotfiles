@@ -78,6 +78,17 @@
     append: yes
   become: yes
 
+# DDEV's router and development tools share the host's inotify watch limit.
+- name: Increase inotify watch limit for DDEV and development tools
+  ansible.posix.sysctl:
+    name: fs.inotify.max_user_watches
+    value: '524288'
+    sysctl_file: /etc/sysctl.d/60-inotify.conf
+    sysctl_set: yes
+    state: present
+    reload: yes
+  become: yes
+
 - name: Set a list of Bash aliases
   set_fact:
     bash_aliases:
