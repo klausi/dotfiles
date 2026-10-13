@@ -329,6 +329,7 @@
       - php-gmp
       - php-mbstring
       - php-simplexml
+      - php-yaml
       - php-zip
       - pkg-config
       - p7zip-full
