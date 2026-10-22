@@ -218,6 +218,39 @@
   register: cloudflared_repo
   become: yes
 
+- name: Add NodeSource signing key
+  ansible.builtin.get_url:
+    url: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
+    dest: /usr/share/keyrings/nodesource.asc
+    mode: '0644'
+    force: no
+  register: nodesource_key
+  become: yes
+
+- name: Add NodeSource Node.js 26.x APT repository
+  ansible.builtin.deb822_repository:
+    name: nodesource
+    types:
+      - deb
+    uris: https://deb.nodesource.com/node_26.x
+    suites: nodistro
+    components:
+      - main
+    architectures: amd64
+    signed_by: /usr/share/keyrings/nodesource.asc
+  register: nodesource_repo
+  become: yes
+
+- name: Prefer NodeSource Node.js packages
+  ansible.builtin.copy:
+    content: |
+      Package: nodejs
+      Pin: origin deb.nodesource.com
+      Pin-Priority: 600
+    dest: /etc/apt/preferences.d/nodejs
+    mode: '0644'
+  become: yes
+
 - name: Add Yarn apt key
   ansible.builtin.get_url:
     url: https://dl.yarnpkg.com/debian/pubkey.gpg
@@ -319,8 +352,9 @@
       - nethogs
       - net-tools
       - network-manager
-      - nodejs
-      - npm
+      # NodeSource includes npm in the nodejs package.
+      # Require 26.x so state: present also upgrades an existing Ubuntu package.
+      - nodejs=26.*
       - pdftk
       - php-bcmath
       - php-cli
@@ -364,6 +398,8 @@
       or vscode_repo.changed
       or github_repo.changed
       or cloudflared_repo.changed
+      or nodesource_key.changed
+      or nodesource_repo.changed
       or yarn_repo.changed
       or pkghaus_key.changed
       or pkghaus_repo.changed
