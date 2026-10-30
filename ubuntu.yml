@@ -1,4 +1,14 @@
 ---
+# Keep the Bluetooth service available for the switch in GNOME Settings.
+- name: Disable automatic Bluetooth adapter power-on
+  community.general.ini_file:
+    path: /etc/bluetooth/main.conf
+    section: Policy
+    option: AutoEnable
+    value: 'false'
+    mode: '0644'
+  become: yes
+
 - name: Remove Snap packages we do not want
   community.general.snap:
     name:
